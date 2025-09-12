@@ -1,0 +1,13 @@
+# Optional: ignore other temporary files
+*.user
+*.vs/
+*.vscode/
+*.log
+
+#ASP code
+
+# Ignore all bin and obj folders recursively
+**/bin/
+**/obj/
+
+
