@@ -1,8 +1,8 @@
-using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Application.Services;
-using AdaTranslation.Infrastructure;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using AdaTranslation.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

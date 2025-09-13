@@ -10,6 +10,11 @@ namespace AdaTranslation.Infrastructure.Data
 
         public DbSet<User> User => Set<User>();
         public DbSet<Center> Center => Set<Center>();
+        public DbSet<Service> Service => Set<Service>();
+        public DbSet<Language> Language => Set<Language>();
+        public DbSet<Resident> Resident => Set<Resident>();
+        public DbSet<Demand> Demand => Set<Demand>();
+        public DbSet<DemandDetail> DemandDetail => Set<DemandDetail>();
         public DbSet<UserLanguage> UserLanguage => Set<UserLanguage>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

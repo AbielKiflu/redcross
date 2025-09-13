@@ -2,7 +2,7 @@
 using AdaTranslation.Domain.Entities;
 using Google.Apis.Auth;
 
-namespace AdaTranslation.Application.Services
+namespace AdaTranslation.Infrastructure.Services
 {
     public class AuthenticationService : IAuthenticationService
     {

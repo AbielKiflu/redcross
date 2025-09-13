@@ -1,6 +1,7 @@
-﻿using AdaTranslation.Domain.Entities;
+﻿
+using AdaTranslation.Domain.Entities;
 
-namespace AdaTranslation.Application.Interfaces
+namespace AdaTranslation.Domain.Interfaces
 {
     public interface ICenterRepository
     {

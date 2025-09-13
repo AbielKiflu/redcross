@@ -1,5 +1,5 @@
 ﻿
-using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.Services

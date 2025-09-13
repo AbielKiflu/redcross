@@ -1,9 +1,9 @@
-﻿using AdaTranslation.Application.Interfaces;
+﻿using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdaTranslation.Infrastructure
+namespace AdaTranslation.Infrastructure.Repositories
 {
     public class CenterRepository : ICenterRepository
     {

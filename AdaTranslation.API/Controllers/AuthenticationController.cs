@@ -1,5 +1,4 @@
-using AdaTranslation.Application.Services;
-using AdaTranslation.Domain.Entities;
+using AdaTranslation.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -7,12 +6,10 @@ namespace AdaTranslation.API.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly AuthenticationService _authenticationService;
-        private readonly ILogger<AuthenticationController> _logger;
+        private readonly IAuthenticationService _authenticationService;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger,  AuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationService authenticationService)
         {
-            _logger = logger;
             _authenticationService = authenticationService;
         }
 
