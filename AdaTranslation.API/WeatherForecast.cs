@@ -1,4 +1,4 @@
-namespace Api
+namespace AdaTranslation.API
 {
     public class WeatherForecast
     {
