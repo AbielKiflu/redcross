@@ -1,5 +1,6 @@
-﻿using AdaTranslation.Application.Services;
+﻿using AdaTranslation.Application.Interfaces;
 using AdaTranslation.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -8,14 +9,15 @@ namespace AdaTranslation.API.Controllers
     [Route("[controller]")]
     public class CenterController : ControllerBase
     {
-        private readonly CenterService _centerService;
+        private readonly ICenterService _centerService;
 
-        public CenterController(CenterService centerService)
+        public CenterController(ICenterService centerService)
         {
             _centerService = centerService;
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<Center>> Get()
         {
             return await _centerService.GetAllCentersAsync();

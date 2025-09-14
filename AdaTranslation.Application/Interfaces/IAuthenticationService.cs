@@ -1,9 +1,9 @@
-﻿using AdaTranslation.Domain.Entities;
+﻿using AdaTranslation.Application.DTOs;
 
 namespace AdaTranslation.Application.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<User> HandleGoogleLoginAsync(string token);
+        Task<LoginResponseDto> LoginAsync(LoginRequestDto request);
     }
 }
