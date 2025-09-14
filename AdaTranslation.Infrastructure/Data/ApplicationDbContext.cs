@@ -1,4 +1,5 @@
 ﻿using AdaTranslation.Domain.Entities;
+using AdaTranslation.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -10,6 +11,7 @@ namespace AdaTranslation.Infrastructure.Data
 
         public DbSet<User> User => Set<User>();
         public DbSet<Center> Center => Set<Center>();
+
         public DbSet<Service> Service => Set<Service>();
         public DbSet<Language> Language => Set<Language>();
         public DbSet<Resident> Resident => Set<Resident>();
@@ -21,6 +23,9 @@ namespace AdaTranslation.Infrastructure.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new CenterConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 

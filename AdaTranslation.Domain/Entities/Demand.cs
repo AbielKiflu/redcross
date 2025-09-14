@@ -11,9 +11,9 @@ namespace AdaTranslation.Domain.Entities
         public DemandPriority Priority { get; set; } = DemandPriority.Normal;
         public DemandStatus Status { get; set; } = DemandStatus.Pending;
         public DemandType DemandType { get; set; } = DemandType.Site;
-        public int? DemandedUserID { get; set; }
+        public long? DemandedUserID { get; set; }
         public int CenterID { get; set; }
-        public int CreatedByID { get; set; }
+        public long CreatedByID { get; set; }
         public DateTime CreatedDate { get; set; }
 
         public User? DemandedUser { get; set; }

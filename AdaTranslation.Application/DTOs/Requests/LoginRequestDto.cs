@@ -1,4 +1,4 @@
-﻿namespace AdaTranslation.Application.DTOs
+﻿namespace AdaTranslation.Application.DTOs.Requests
 {
     public class LoginRequestDto
     {

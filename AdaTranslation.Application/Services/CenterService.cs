@@ -1,4 +1,5 @@
 ﻿
+using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.Interfaces;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Domain.Interfaces;
@@ -14,7 +15,7 @@ namespace AdaTranslation.Application.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Center>> GetAllCentersAsync()
+        public async Task<IEnumerable<CenterDto>> GetAllCentersAsync()
         {
             return await _repository.GetAll();
         }

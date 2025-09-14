@@ -1,11 +1,10 @@
-using AdaTranslation.Application.DTOs;
+using AdaTranslation.Application.DTOs.Requests;
 using AdaTranslation.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdaTranslation.API.Controllers
+namespace AdaTranslation.API.Controllers.Public
 {
     [ApiController]
-    [Route("[controller]")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authentication;

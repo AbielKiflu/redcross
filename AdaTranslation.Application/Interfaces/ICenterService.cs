@@ -1,9 +1,9 @@
-﻿using AdaTranslation.Domain.Entities;
+﻿using AdaTranslation.Application.DTOs;
 
 namespace AdaTranslation.Application.Interfaces
 {
     public interface ICenterService
     {
-        Task<IEnumerable<Center>> GetAllCentersAsync();
+        Task<IEnumerable<CenterDto>> GetAllCentersAsync();
     }
 }

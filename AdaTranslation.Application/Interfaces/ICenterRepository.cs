@@ -1,10 +1,9 @@
-﻿
-using AdaTranslation.Domain.Entities;
+﻿using AdaTranslation.Application.DTOs;
 
 namespace AdaTranslation.Domain.Interfaces
 {
     public interface ICenterRepository
     {
-        Task<IEnumerable<Center>> GetAll();
+        Task<IEnumerable<CenterDto>> GetAll();
     }
 }

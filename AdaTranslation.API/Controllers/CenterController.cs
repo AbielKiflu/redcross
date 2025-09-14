@@ -1,6 +1,5 @@
-﻿using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
+﻿using AdaTranslation.Application.DTOs;
+using AdaTranslation.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -17,8 +16,7 @@ namespace AdaTranslation.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IEnumerable<Center>> Get()
+        public async Task<IEnumerable<CenterDto>> Get()
         {
             return await _centerService.GetAllCentersAsync();
         }

@@ -1,4 +1,5 @@
-﻿using AdaTranslation.Application.DTOs;
+﻿using AdaTranslation.Application.DTOs.Requests;
+using AdaTranslation.Application.DTOs.Responses;
 using AdaTranslation.Application.Interfaces;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
