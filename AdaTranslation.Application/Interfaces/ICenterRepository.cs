@@ -4,6 +4,6 @@ namespace AdaTranslation.Domain.Interfaces
 {
     public interface ICenterRepository
     {
-        Task<IEnumerable<CenterDto>> GetAll();
+        Task<IEnumerable<CenterDto>> Get();
     }
 }

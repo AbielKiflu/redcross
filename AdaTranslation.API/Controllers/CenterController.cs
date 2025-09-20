@@ -1,5 +1,6 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.Interfaces;
+﻿using AdaTranslation.Application.Commands.Queries;
+using AdaTranslation.Application.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -8,17 +9,17 @@ namespace AdaTranslation.API.Controllers
     [Route("[controller]")]
     public class CenterController : ControllerBase
     {
-        private readonly ICenterService _centerService;
+        private readonly IMediator _mediator;
 
-        public CenterController(ICenterService centerService)
+        public CenterController(IMediator mediator)
         {
-            _centerService = centerService;
+           _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CenterDto>> Get()
         {
-            return await _centerService.GetAllCentersAsync();
+           return await _mediator.Send(new GetCenterQuery());
         }
     }
 

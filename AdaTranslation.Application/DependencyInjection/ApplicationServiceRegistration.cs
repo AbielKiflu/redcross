@@ -1,6 +1,4 @@
-﻿using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Application.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace AdaTranslation.Application.DependencyInjection
 {
@@ -8,7 +6,7 @@ namespace AdaTranslation.Application.DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<ICenterService, CenterService>();
+            //services.AddScoped<ICenterService, CenterService>();
             
             return services;
         }

@@ -13,7 +13,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<CenterDto>> GetAll()
+        public async Task<IEnumerable<CenterDto>> Get()
         {
             return await _context.Center
          .Include(c => c.Users)
