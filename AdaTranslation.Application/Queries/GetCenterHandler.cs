@@ -2,7 +2,7 @@
 using AdaTranslation.Domain.Interfaces;
 using MediatR;
 
-namespace AdaTranslation.Application.Commands.Queries
+namespace AdaTranslation.Application.Queries
 {
     public class GetCenterHandler : IRequestHandler<GetCenterQuery, IEnumerable<CenterDto>>
     {

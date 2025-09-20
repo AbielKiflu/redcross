@@ -1,7 +1,7 @@
 ﻿using AdaTranslation.Application.DTOs;
 using MediatR;
 
-namespace AdaTranslation.Application.Commands.Queries
+namespace AdaTranslation.Application.Queries
 {
     public class GetCenterQuery : IRequest<IEnumerable<CenterDto>>
     {

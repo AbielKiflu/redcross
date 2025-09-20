@@ -1,5 +1,5 @@
-﻿using AdaTranslation.Application.Commands.Queries;
-using AdaTranslation.Application.DTOs;
+﻿using AdaTranslation.Application.DTOs;
+using AdaTranslation.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
