@@ -1,5 +1,5 @@
-using AdaTranslation.Application.Commands.Queries;
 using AdaTranslation.Application.DependencyInjection;
+using AdaTranslation.Application.Queries;
 using AdaTranslation.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
