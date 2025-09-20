@@ -1,4 +1,4 @@
-﻿namespace AdaTranslation.Domain
+﻿namespace AdaTranslation.Tests
 {
     public class Class1
     {

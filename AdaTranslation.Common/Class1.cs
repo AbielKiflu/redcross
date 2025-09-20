@@ -1,4 +1,4 @@
-﻿namespace AdaTranslation.Application
+﻿namespace AdaTranslation.Common
 {
     public class Class1
     {
