@@ -18,7 +18,7 @@ The system is built using **Clean Architecture + ASP.NET Core Web API + MediatR 
 
 ## 📂 Domain Model (Database Schema)
 
-The core entities of the system:
+The core entities of the system partial design:
 <img width="897" height="744" alt="image" src="https://github.com/user-attachments/assets/5810be4b-a37f-4aaf-a130-edf69d911c0a" />
 
 ---
@@ -44,12 +44,16 @@ The core entities of the system:
 
 ## 🚀 Features (Planned)
 - [x] Create and manage **Centers**  
-- [ ] Register and manage **Users (Mediators)**
-- [ ] Register and manage Users (Mediators)
+- [ ] Register and manage **Users (Mediators Admin and Demander)**
+- [ ] Login oauth using google futur outlook
 - [ ] Define available Services
 - [ ] Create and track Demands from centers
+- [ ] Handle unavialabilities (absences and holidays of users)
 - [ ] Let residents participate at least see the presence of mediators in a day
 - [ ] Assign Mediators and manage workload
 - [ ] Support multi-language communication
 - [ ] Add reporting & analytics for demand tracking
+- [ ] Integrate to mail services
+- [ ] Frontend dragable UI components
+- [ ] Integrate to distance and map services
 
