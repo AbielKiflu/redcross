@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Queries\GetCenterById\" />
   </ItemGroup>
 
 </Project>
