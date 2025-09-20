@@ -1,5 +1,8 @@
 ﻿namespace AdaTranslation.Domain.Enums
 {
+    /// <summary>
+    /// The status of a demand
+    /// </summary>
     public enum DemandStatus
     {
         Pending = 0,
