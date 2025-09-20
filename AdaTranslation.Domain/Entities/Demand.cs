@@ -4,18 +4,17 @@ namespace AdaTranslation.Domain.Entities
 {
     public class Demand
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public required string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public DemandPriority Priority { get; set; } = DemandPriority.Normal;
         public DemandStatus Status { get; set; } = DemandStatus.Pending;
         public DemandType DemandType { get; set; } = DemandType.Site;
-        public long? DemandedUserID { get; set; }
-        public int CenterID { get; set; }
-        public long CreatedByID { get; set; }
-        public DateTime CreatedDate { get; set; }
-
+        public long? DemandedUserId { get; set; }
+        public int CenterId { get; set; }
+        public long CreatedById { get; set; }
+        public DateTime CreatedDate { get; set; } 
         public User? DemandedUser { get; set; }
         public Center Center { get; set; } = null!;
         public User CreatedBy { get; set; } = null!;

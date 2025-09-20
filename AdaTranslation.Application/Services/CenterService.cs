@@ -1,7 +1,6 @@
 ﻿
 using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Domain.Entities;
 using AdaTranslation.Domain.Interfaces;
 
 namespace AdaTranslation.Application.Services

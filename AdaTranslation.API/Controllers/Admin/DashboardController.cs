@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers.Admin
 {
-    [Controller]
-    [Route("[Controller]")]
+    [ApiController]
     public class DashboardController: ControllerBase
     {
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("admin/dashboard")]
         public IActionResult AdminDashboard()
         {

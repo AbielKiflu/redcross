@@ -34,11 +34,11 @@ namespace AdaTranslation.Infrastructure.Services
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.UserRole.ToString()),
-                new Claim("CenterId", user.CenterID.ToString())
+                new Claim("CenterId", user.CenterId.ToString())
             };
 
             var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
@@ -55,7 +55,7 @@ namespace AdaTranslation.Infrastructure.Services
 
             return new LoginResponseDto
             {
-                UserId = user.ID,
+                UserId = user.Id,
                 FullName = $"{user.FirstName} {user.LastName}",
                 Token = tokenHandler.WriteToken(token),
                 ExpiresAt = expires

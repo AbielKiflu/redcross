@@ -8,11 +8,10 @@ namespace AdaTranslation.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Center> builder)
         {
-            builder.ToTable("Center");
+            builder.ToTable(nameof(Center));
 
-            builder.HasKey(c => c.ID); //PK
-
-            // Properties
+            builder.HasKey(c => c.Id);
+             
             builder.Property(c => c.Description)
                 .IsRequired()
                 .HasMaxLength(30);
@@ -21,19 +20,16 @@ namespace AdaTranslation.Infrastructure.Configurations
                 .HasMaxLength(250);
 
             builder.Property(c => c.Contact)
-                .HasMaxLength(13);
-
-
-            // Center has many Users
+                .HasMaxLength(13); 
+            
             builder.HasMany(c => c.Users)
                    .WithOne(u => u.Center)
-                   .HasForeignKey(u => u.CenterID)
+                   .HasForeignKey(u => u.CenterId)
                    .OnDelete(DeleteBehavior.Restrict);
-
-            // Center has many Demands
+             
             builder.HasMany(c => c.Demands)
                    .WithOne(d => d.Center)
-                   .HasForeignKey(d => d.CenterID)
+                   .HasForeignKey(d => d.CenterId)
                    .OnDelete(DeleteBehavior.Cascade);  
         }
     }

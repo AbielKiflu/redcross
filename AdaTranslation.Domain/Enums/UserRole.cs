@@ -2,8 +2,8 @@
 {
     public enum UserRole
     {
-        Admin,
-        Mediator,
-        Demander
+        Admin = 1,
+        Mediator = 2,
+        Demander = 3
     }
 }

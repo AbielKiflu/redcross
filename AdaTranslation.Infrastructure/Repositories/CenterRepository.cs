@@ -19,13 +19,13 @@ namespace AdaTranslation.Infrastructure.Repositories
          .Include(c => c.Users)
          .Select(c => new CenterDto
          {
-             Id = c.ID,
+             Id = c.Id,
              Description = c.Description,
              Address = c.Address,
              Contact = c.Contact,
              Users = c.Users.Select(u => new UserDto
              {
-                 ID = u.ID,
+                 ID = u.Id,
                  FirstName = u.FirstName,
                  LastName = u.LastName,
                  Telephone = u.Telephone,

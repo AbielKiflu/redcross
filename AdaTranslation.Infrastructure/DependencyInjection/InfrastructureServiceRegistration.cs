@@ -14,14 +14,13 @@ namespace AdaTranslation.Infrastructure.DependencyInjection
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Connection")));
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-            services.AddScoped<ICenterRepository, CenterRepository>();
-
+            services.AddScoped<ICenterRepository, CenterRepository>(); 
 
             return services;
         }

@@ -8,9 +8,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("User");
+        builder.ToTable(nameof(User));
 
-        builder.HasKey(u => u.ID);
+        builder.HasKey(u => u.Id);
 
         builder.Property(u => u.LastName)
                .IsRequired()
@@ -43,12 +43,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         // Relationships
         builder.HasOne(u => u.Center)  
                .WithMany(c => c.Users)             
-               .HasForeignKey(u => u.CenterID)     
+               .HasForeignKey(u => u.CenterId)     
                .OnDelete(DeleteBehavior.Restrict); 
 
         builder.HasMany(u => u.UserLanguages)     
                .WithOne(ul => ul.User)            
                .HasForeignKey(ul => ul.UserId);
-    }
+        }
 }
 }
