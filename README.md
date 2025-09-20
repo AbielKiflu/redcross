@@ -25,9 +25,9 @@ The core entities of the system:
 
 ## 🔄 Workflow
 
-1. A **Center** creates a new **Demand** for a specific **Service**.  
-2. A **Mediator (User)** is assigned to the demand.  
-3. **DemandDetails** are created to specify required services, responsibilities, and communication.  
+1. A **Center (User of role Demander the director of a center)** creates a new **Demand** for a specific **Service**.  
+2. A **Mediator (User of role Mediator)** is assigned to the demand.  
+3. **DemandDetails** are created to specify required services, responsibilities, and communication by **Admin (User of role Admin as a coordinator)**.  
 4. The demand is tracked with **status, priority, and deadlines**.  
 5. Completed demands are stored for reporting and accountability.  
 

@@ -3,7 +3,6 @@ using AdaTranslation.Application.DependencyInjection;
 using AdaTranslation.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +12,6 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
-// JWT setup
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(options =>
 {
@@ -40,8 +37,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 var app = builder.Build();
-
-
+ 
 
 //app.UseHttpsRedirection();
 
