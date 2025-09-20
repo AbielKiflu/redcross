@@ -1,6 +1,6 @@
 ﻿using AdaTranslation.Application.DTOs.Requests;
 using AdaTranslation.Application.DTOs.Responses;
-using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Application.Services;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

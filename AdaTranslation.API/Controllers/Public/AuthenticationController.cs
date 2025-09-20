@@ -1,5 +1,5 @@
 using AdaTranslation.Application.DTOs.Requests;
-using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers.Public

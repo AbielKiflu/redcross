@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.Interfaces;
+﻿using AdaTranslation.Application.Services;
 using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Infrastructure.Data;
 using AdaTranslation.Infrastructure.Repositories;
