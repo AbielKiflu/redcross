@@ -14,13 +14,13 @@ namespace AdaTranslation.API.Controllers
 
         public CenterController(IMediator mediator)
         {
-           _mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<PagedResult<CenterDto>> Get()
         {
-           return await _mediator.Send(new GetCenterQuery());
+            return await _mediator.Send(new GetCenterQuery());
         }
     }
 

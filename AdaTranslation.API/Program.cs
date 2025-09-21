@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetCenterQuery).Assembly));
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+byte[] key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -36,8 +36,8 @@ builder.Services.AddAuthentication(options =>
 
 
 builder.Services.AddControllers();
-var app = builder.Build();
- 
+WebApplication app = builder.Build();
+
 
 //app.UseHttpsRedirection();
 

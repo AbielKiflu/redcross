@@ -19,7 +19,7 @@ namespace AdaTranslation.API.Controllers.Public
         {
             try
             {
-                var result = await _authentication.LoginAsync(request);
+                Application.DTOs.Responses.LoginResponseDto result = await _authentication.LoginAsync(request);
                 return Ok(result);
             }
             catch (UnauthorizedAccessException ex)
