@@ -7,19 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {
-    public class CenterRepository : ICenterRepository
+    public class CenterRepository(ApplicationDbContext context) : ICenterRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public CenterRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private readonly ApplicationDbContext _context= context;
+         
         public async Task<PagedResult<CenterDto>> Get(GetCenterQuery request, CancellationToken cancellationToken)
         {
             var query = _context.Center
-    .AsNoTracking()
-    .Include(c => c.Users);
+                        .AsNoTracking()
+                        .Include(c => c.Users);
 
             var totalCount = await query.CountAsync(cancellationToken);
 
