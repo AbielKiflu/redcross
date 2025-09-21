@@ -1,4 +1,5 @@
 using AdaTranslation.Application.DTOs.Requests;
+using AdaTranslation.Application.DTOs.Responses;
 using AdaTranslation.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace AdaTranslation.API.Controllers.Public
         {
             try
             {
-                Application.DTOs.Responses.LoginResponseDto result = await _authentication.LoginAsync(request);
+                LoginResponseDto result = await _authentication.LoginAsync(request);
                 return Ok(result);
             }
             catch (UnauthorizedAccessException ex)
