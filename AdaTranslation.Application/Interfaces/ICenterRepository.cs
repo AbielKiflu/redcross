@@ -1,4 +1,5 @@
 ﻿using AdaTranslation.Application.DTOs;
+using AdaTranslation.Application.Queries;
 
 namespace AdaTranslation.Domain.Interfaces
 {
@@ -7,6 +8,6 @@ namespace AdaTranslation.Domain.Interfaces
     /// </summary>
     public interface ICenterRepository
     {
-        Task<IEnumerable<CenterDto>> Get();
+        Task<PagedResult<CenterDto>> Get(GetCenterQuery request, CancellationToken cancellationToken);
     }
 }
