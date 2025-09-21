@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers.Admin
 {
     [ApiController]
-    public class DashboardController: ControllerBase
+    public class DashboardController : ControllerBase
     {
         //[Authorize(Roles = "Admin")]
         [HttpGet("admin/dashboard")]

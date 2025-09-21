@@ -5,7 +5,7 @@ namespace AdaTranslation.API.Controllers.Public
 {
     [Controller]
     [Route("[Controller]")]
-    public class InfoController: ControllerBase
+    public class InfoController : ControllerBase
     {
         [AllowAnonymous]
         [HttpGet("public/info")]

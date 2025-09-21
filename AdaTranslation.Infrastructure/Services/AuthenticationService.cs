@@ -1,6 +1,7 @@
 ﻿using AdaTranslation.Application.DTOs.Requests;
 using AdaTranslation.Application.DTOs.Responses;
 using AdaTranslation.Application.Services;
+using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,11 @@ namespace AdaTranslation.Infrastructure.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto request)
         {
-            var user = await _context.User.SingleOrDefaultAsync(u => u.Email == request.Email);
+            var user = await _context.User 
+                .AsNoTracking().Include(u => u.UserLanguages)
+                .ThenInclude(ul => ul.Language)
+                .SingleOrDefaultAsync(u => u.Email == request.Email);
+
 
             if (user == null)
                 throw new UnauthorizedAccessException("Invalid credentials");
