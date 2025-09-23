@@ -56,4 +56,5 @@ The core entities of the system partial design:
 - [ ] Integrate to mail services
 - [ ] Frontend dragable UI components
 - [ ] Integrate to distance and map services
+- [ ] Add to agenda
 
