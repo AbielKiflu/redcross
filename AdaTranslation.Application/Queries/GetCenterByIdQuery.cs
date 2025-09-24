@@ -1,5 +1,4 @@
 ﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Domain;
 using MediatR;
 
 namespace AdaTranslation.Application.Queries

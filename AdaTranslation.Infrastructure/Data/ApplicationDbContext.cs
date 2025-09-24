@@ -9,13 +9,13 @@ namespace AdaTranslation.Infrastructure.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<User> User => Set<User>();
-        public DbSet<Center> Center => Set<Center>();
-        public DbSet<Service> Service => Set<Service>();
-        public DbSet<Language> Language => Set<Language>();
-        public DbSet<Demand> Demand => Set<Demand>();
-        public DbSet<DemandDetail> DemandDetail => Set<DemandDetail>();
-        public DbSet<UserLanguage> UserLanguage => Set<UserLanguage>();
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Center> Centers => Set<Center>();
+        public DbSet<Service> Services => Set<Service>();
+        public DbSet<Language> Languages => Set<Language>();
+        public DbSet<Demand> Demands => Set<Demand>();
+        public DbSet<DemandDetail> DemandDetails => Set<DemandDetail>();
+        public DbSet<UserLanguage> UserLanguages => Set<UserLanguage>();
          
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -25,10 +25,14 @@ namespace AdaTranslation.Infrastructure.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto request)
         {
-            var user = await _context.User 
-                .AsNoTracking().Include(u => u.UserLanguages)
-                .ThenInclude(ul => ul.Language)
-                .SingleOrDefaultAsync(u => u.Email == request.Email);
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new ArgumentException("Email is required.");
+
+            var user = await _context.Users
+                .AsNoTracking()
+                .Include(u => u.UserLanguages)
+                    .ThenInclude(ul => ul.Language)
+                .SingleOrDefaultAsync(u => u.Email.ToLowerInvariant() == request.Email.ToLowerInvariant());
 
 
             if (user == null)
@@ -59,12 +63,12 @@ namespace AdaTranslation.Infrastructure.Services
             );
 
             return new LoginResponseDto
-            {
-                UserId = user.Id,
-                FullName = $"{user.FirstName} {user.LastName}",
-                Token = tokenHandler.WriteToken(token),
-                ExpiresAt = expires
-            };
+            (
+                user.Id,
+                $"{user.FirstName} {user.LastName}",
+                tokenHandler.WriteToken(token),
+                 expires
+            );
         }
  
     }
