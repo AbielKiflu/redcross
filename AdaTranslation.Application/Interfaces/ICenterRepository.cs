@@ -9,5 +9,8 @@ namespace AdaTranslation.Domain.Interfaces
     public interface ICenterRepository
     {
         Task<PagedResult<CenterDto>> Get(GetCenterQuery request, CancellationToken cancellationToken);
+
+        Task<CenterDto> GetById(GetCenterByIdQuery request, CancellationToken cancellationToken);
+
     }
 }

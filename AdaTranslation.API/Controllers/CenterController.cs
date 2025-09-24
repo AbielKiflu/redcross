@@ -18,9 +18,21 @@ namespace AdaTranslation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<PagedResult<CenterDto>> Get()
+        public async Task<PagedResult<CenterDto>> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            return await _mediator.Send(new GetCenterQuery());
+            var query = new GetCenterQuery
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return await _mediator.Send(query);
+        }
+      
+        [HttpGet("{id}")]
+        public async Task<CenterDto> GetById(int id)
+        {
+            return await _mediator.Send(new GetCenterByIdQuery{ Id = id});
         }
     }
 
