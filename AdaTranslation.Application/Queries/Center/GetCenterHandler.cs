@@ -3,7 +3,7 @@ using AdaTranslation.Domain;
 using AdaTranslation.Domain.Interfaces;
 using MediatR;
 
-namespace AdaTranslation.Application.Queries
+namespace AdaTranslation.Application.Queries.Center
 {
     public class GetCenterHandler : IRequestHandler<GetCenterQuery, PagedResult<CenterDto>>
     {

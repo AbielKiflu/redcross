@@ -1,5 +1,6 @@
 ﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.Queries;
+using AdaTranslation.Application.DTOs.Mappers;
+using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Domain;
 using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Infrastructure.Data;
@@ -16,7 +17,12 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
             var query = _context.Centers
                         .AsNoTracking()
-                        .Include(c => c.Users);
+                        .Include(c => c.Users)
+                        .ThenInclude(u => u.UserLanguages)
+                        .ThenInclude(ul => ul.Language)
+                        .Include(c => c.Users)
+                        .ThenInclude(u => u.Center);
+
 
             var totalCount = await query.CountAsync(cancellationToken);
 
@@ -25,22 +31,15 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(c => new CenterDto
-                (
-                    c.Id,
-                    c.Description,
-                    c.Address,
-                    c.Contact,
-                    c.Users.Select(u => new UserDto 
-                    (
-                        u.Id,
-                        u.FirstName,
-                        u.LastName,
-                        u.Telephone,
-                        u.Email
-                        )).ToList() 
-                )
-                )
-                .ToListAsync(cancellationToken);
+                        (
+                            c.Id,
+                            c.Description,
+                            c.Address,
+                            c.Contact,
+                            c.Users.Select(u => UserMapper.ToUserDto(u)).ToList()
+                            )
+                        )
+                        .ToListAsync(cancellationToken);
 
             if (request.PageNumber < 1 || request.PageSize < 1)
                 throw new ArgumentException("Invalid paging parameters.");
@@ -63,21 +62,15 @@ namespace AdaTranslation.Infrastructure.Repositories
                         .Where(c => c.Id == request.Id)
                          .Select(c => new CenterDto
                             (
-                    c.Id,
-                    c.Description,
-                    c.Address,
-                    c.Contact,
-                    c.Users.Select(u => new UserDto
-                    (
-                        u.Id,
-                        u.FirstName,
-                        u.LastName,
-                        u.Telephone,
-                        u.Email
-                        )).ToList()
-                )
+                                c.Id,
+                                c.Description,
+                                c.Address,
+                                c.Contact,
+                                c.Users.Select(u => UserMapper.ToUserDto(u)).ToList()
+                            )
                          )
-                .SingleOrDefaultAsync(cancellationToken);
+                         .SingleOrDefaultAsync(cancellationToken);
+
             if (result == null)
                 throw new ArgumentNullException(nameof(result));
 

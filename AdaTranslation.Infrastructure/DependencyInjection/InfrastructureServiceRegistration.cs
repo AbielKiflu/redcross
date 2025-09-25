@@ -20,7 +20,8 @@ namespace AdaTranslation.Infrastructure.DependencyInjection
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-            services.AddScoped<ICenterRepository, CenterRepository>(); 
+            services.AddScoped<ICenterRepository, CenterRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
