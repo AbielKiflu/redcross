@@ -1,5 +1,5 @@
 ﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.Queries;
+using AdaTranslation.Application.Queries.Center;
 
 namespace AdaTranslation.Domain.Interfaces
 {

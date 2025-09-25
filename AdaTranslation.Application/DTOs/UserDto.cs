@@ -1,11 +1,17 @@
 ﻿namespace AdaTranslation.Application.DTOs
 {
-    public class UserDto
-    {
-        public long ID { get; set; }
-        public string LastName { get; set; } = null!;
-        public string FirstName { get; set; } = null!;
-        public string Telephone { get; set; } = null!;
-        public string Email { get; set; } = null!;
-    }
+    public record UserDto(
+        long Id,
+        string LastName,
+        string FirstName,
+        string Telephone,
+        string Email,
+        DateTime? PauseStartDate,
+        DateTime? PauseEndDate,
+        string? GoogleId,
+        UserCenterDto Center,
+        string UserRole,
+        List<UserLanguageDto> Languages
+);
+ 
 }

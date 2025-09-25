@@ -1,8 +1,10 @@
 using AdaTranslation.Application.DependencyInjection;
-using AdaTranslation.Application.Queries;
+using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Infrastructure.DependencyInjection;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 using System.Text;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
