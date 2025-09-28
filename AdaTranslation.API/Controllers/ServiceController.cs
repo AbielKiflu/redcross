@@ -12,6 +12,20 @@ namespace AdaTranslation.API.Controllers
         private readonly IMediator _mediator;
         public ServiceController(IMediator mediator) => _mediator = mediator;
 
+        [HttpGet]
+        public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
+        {
+            var query = await _mediator.Send(new GetServiceQuery(), cancellationToken);
+            return Ok(query);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id,CancellationToken cancellationToken = default)
+        {
+            var query = await _mediator.Send(new GetServiceByIdQuery(id), cancellationToken);
+            return Ok(query);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> Create([FromBody] CreateServiceCommand command)

@@ -1,5 +1,4 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Domain.Entities;
+﻿using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.Interfaces
 {
