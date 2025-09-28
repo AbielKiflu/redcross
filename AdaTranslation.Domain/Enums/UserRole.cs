@@ -7,6 +7,6 @@
     {
         Admin = 1,
         Mediator = 2,
-        Demander = 3
+        Client = 3
     }
 }

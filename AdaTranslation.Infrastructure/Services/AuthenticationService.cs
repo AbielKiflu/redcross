@@ -1,10 +1,8 @@
 ﻿using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.DTOs.Responses;
-using AdaTranslation.Application.Services;
-
+using AdaTranslation.Application.Services; 
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,16 +12,14 @@ namespace AdaTranslation.Infrastructure.Services
     public class AuthenticationService : IAuthenticationService
     {
          
-        private readonly IConfiguration _configuration;
-
+        private readonly IConfiguration _configuration; 
         public AuthenticationService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         public  LoginResponseDto Login(UserDto user)
-        {
-            
+        { 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
 
