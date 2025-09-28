@@ -1,8 +1,10 @@
-﻿using AdaTranslation.Application.DTOs;
+﻿using System.Data;
+
+using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.DTOs.Mappers;
 using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Domain.Enums;
 using AdaTranslation.Infrastructure.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
@@ -22,6 +24,44 @@ namespace AdaTranslation.Infrastructure.Repositories
                  .Include(u => u.UserLanguages)
                      .ThenInclude(ul => ul.Language)
                  .ToListAsync(cancellationToken);
+
+            return users.Select(u => UserMapper.ToUserDto(u));
+        }
+
+        public async Task<IEnumerable<UserDto>> GetByCenterIdAsync(int centerId, CancellationToken cancellationToken)
+        {
+            var users = await _context.Users
+                .AsNoTracking()
+                .Include(u => u.Center)
+                .Include(u => u.UserLanguages)
+                    .ThenInclude(ul => ul.Language)
+                    .Where(u  => u.CenterId == centerId )
+                .ToListAsync(cancellationToken);
+
+            return users.Select(u => UserMapper.ToUserDto(u));
+        }
+
+        public async Task<IEnumerable<UserDto>> GetByUserRoleIdAsync(UserRole role, CancellationToken cancellationToken)
+        {
+            var users = await _context.Users
+              .AsNoTracking()
+              .Include(u => u.Center)
+              .Include(u => u.UserLanguages)
+                  .ThenInclude(ul => ul.Language)
+                  .Where(u => u.UserRole == role)
+              .ToListAsync(cancellationToken);
+
+            return users.Select(u => UserMapper.ToUserDto(u));
+        }
+        public async Task<IEnumerable<UserDto>> GetByCenterIdAndUserRoleAsync(int centerId, UserRole role, CancellationToken cancellationToken)
+        {
+            var users = await _context.Users
+                .AsNoTracking()
+                .Include(u => u.Center)
+                .Include(u => u.UserLanguages)
+                    .ThenInclude(ul => ul.Language)
+                    .Where(u => u.CenterId == centerId && u.UserRole == role)
+                .ToListAsync(cancellationToken);
 
             return users.Select(u => UserMapper.ToUserDto(u));
         }
