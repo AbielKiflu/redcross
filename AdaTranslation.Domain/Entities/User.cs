@@ -4,17 +4,17 @@ namespace AdaTranslation.Domain.Entities
 {
     public class User
     {
-        public long Id { get; private set; }
-        public string LastName { get; private set; }
-        public  string FirstName { get; private set; }
-        public  string Telephone { get; private set; }
-        public  string Email { get; private set; }
-        public DateTime? PauseStartDate { get; private set; }
-        public DateTime? PauseEndDate { get; private set; }
-        public int CenterId { get; private set; }
-        public string? GoogleId { get; private set; }
-        public Center Center { get; private set; } = null!;
-        public UserRole UserRole { get; private set; } = UserRole.Mediator;
-        public ICollection<UserLanguage> UserLanguages { get; private set; } = []; 
+        public long Id { get; set; }
+        public string LastName { get; set; }
+        public  string FirstName { get; set; }
+        public  string Telephone { get; set; }
+        public  string Email { get; set; }
+        public DateTime? PauseStartDate { get; set; }
+        public DateTime? PauseEndDate { get; set; }
+        public int CenterId { get; set; }
+        public string? GoogleId { get; set; }
+        public Center Center { get; set; } = null!;
+        public UserRole UserRole { get; set; } = UserRole.Mediator;
+        public ICollection<UserLanguage> UserLanguages { get; set; } = []; 
     }
 }

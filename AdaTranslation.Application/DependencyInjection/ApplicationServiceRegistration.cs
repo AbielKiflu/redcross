@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AdaTranslation.Application.DTOs;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AdaTranslation.Application.DependencyInjection
 {
@@ -6,8 +8,8 @@ namespace AdaTranslation.Application.DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            //services.AddScoped<ICenterService, CenterService>();
-            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
             return services;
         }
     }
