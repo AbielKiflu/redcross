@@ -1,5 +1,4 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Domain.Entities;
+﻿using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.DTOs.Mappers
 {
@@ -16,19 +15,19 @@ namespace AdaTranslation.Application.DTOs.Mappers
                 PauseStartDate: user.PauseStartDate,
                 PauseEndDate: user.PauseEndDate,
                 GoogleId: user.GoogleId,
-                Center: new UserCenterDto(
+                Center: new CenterDto(
                     Id: user.Center.Id,
                     Description: user.Center.Description,
                     Address: user.Center.Address,
-                    Contact: user.Center.Contact
+                    Contact: user.Center.Contact,
+                    Users: []
                 ),
                 UserRole: user.UserRole.ToString(),
-                Languages: user.UserLanguages
-                    .Select(ul => new UserLanguageDto(
-                        LanguageId: ul.Language.Id,
-                        LanguageName: ul.Language.Description
-                    ))
-                    .ToList()
+                Languages: [.. user.UserLanguages
+                    .Select(ul => new LanguageDto(
+                        Id: ul.Language.Id,
+                        Description: ul.Language.Description
+                    ))]
             );
         }
     }

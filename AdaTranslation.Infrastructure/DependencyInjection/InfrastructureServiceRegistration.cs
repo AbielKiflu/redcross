@@ -25,6 +25,7 @@ namespace AdaTranslation.Infrastructure.DependencyInjection
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IUserQueryService, UserQueryService>();
 
             return services;
         }
