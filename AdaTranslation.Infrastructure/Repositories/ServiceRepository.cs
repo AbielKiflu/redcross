@@ -13,18 +13,16 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
             var services = await _context.Services.ToListAsync(cancellationToken);
 
-            if (services.Any())
-                return services; 
-
-            return Enumerable.Empty<Service>();
+            if (services.Count != 0)
+                return services;  
+            return [];
         }
         public async Task<Service> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             Service? service = await _context.Services.FindAsync(id, cancellationToken);
             if (service != null)
-            {
                 return service;
-            }
+
             throw new KeyNotFoundException($"Service with ID {id} was not found.");
         }
         public async Task CreateAsync(Service service, CancellationToken cancellationToken = default)
