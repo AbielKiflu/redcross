@@ -24,11 +24,11 @@ namespace AdaTranslation.API.Controllers.Public
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                UserDto user = await _mediator.Send(request);
+                UserDto user = await _mediator.Send(request, cancellationToken);
                 return Ok(_authentication.Login(user));
             }
             catch (UnauthorizedAccessException ex)

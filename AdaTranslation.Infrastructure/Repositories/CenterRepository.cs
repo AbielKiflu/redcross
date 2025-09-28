@@ -4,7 +4,6 @@ using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Domain;
 using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Infrastructure.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
@@ -42,8 +41,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                         .ToListAsync(cancellationToken);
 
             if (request.PageNumber < 1 || request.PageSize < 1)
-                throw new ArgumentException("Invalid paging parameters.");
-
+                throw new ArgumentException("Invalid paging parameters."); 
 
             return new PagedResult<CenterDto>
             {

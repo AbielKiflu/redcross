@@ -1,4 +1,5 @@
-﻿using AdaTranslation.Application.Services;
+﻿using AdaTranslation.Application.Interfaces;
+using AdaTranslation.Application.Services;
 using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Infrastructure.Data;
 using AdaTranslation.Infrastructure.Repositories;
@@ -22,6 +23,8 @@ namespace AdaTranslation.Infrastructure.DependencyInjection
 
             services.AddScoped<ICenterRepository, CenterRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
 
             return services;
         }

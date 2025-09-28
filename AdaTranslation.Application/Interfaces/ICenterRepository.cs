@@ -4,7 +4,7 @@ using AdaTranslation.Application.Queries.Center;
 namespace AdaTranslation.Domain.Interfaces
 {
     /// <summary>
-    ///  A repo to make a crud on the table center
+    /// This interface is temp. for the moment centers are going to be created by the database admin
     /// </summary>
     public interface ICenterRepository
     {
