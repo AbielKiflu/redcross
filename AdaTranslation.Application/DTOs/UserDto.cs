@@ -9,9 +9,9 @@
         DateTime? PauseStartDate,
         DateTime? PauseEndDate,
         string? GoogleId,
-        UserCenterDto Center,
+        CenterDto Center,
         string UserRole,
-        List<UserLanguageDto> Languages
+        List<LanguageDto> Languages
 );
  
 }
