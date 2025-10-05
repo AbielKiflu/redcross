@@ -4,7 +4,8 @@
 This project is a **service mediation management system** for the Red Cross.  
 It facilitates how **Centers**  can request and manage **services** through **Mediators**.  
 
-The system is built using **Clean Architecture + ASP.NET Core Web API + MediatR (CQRS)**, ensuring scalability, maintainability, and separation of concerns.
+1. The ***backend system*** is built using **Clean Architecture + ASP.NET Core Web API + MediatR (CQRS)**, ensuring scalability, maintainability, and separation of concerns.
+2. The ***frontend system*** is built using angular 19 and material design 19 [Check the frontend here](https://github.com/AbielKiflu/mediator)
 
 ---
 
