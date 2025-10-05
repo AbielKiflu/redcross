@@ -1,8 +1,8 @@
 ﻿using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.Queries.User;
 using AdaTranslation.Domain.Enums;
-
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -11,10 +11,27 @@ namespace AdaTranslation.API.Controllers
     [Route("[Controller]")]
     public class UserController: ControllerBase
     {
-        IMediator _mediator;
+        private readonly IMediator _mediator;
+
         public UserController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpPost]
+        [Route("userByEmail")] //testing
+        public async Task<ActionResult> GetUserByEmail([FromBody] UserGetByEmailQuery request,CancellationToken cancellationToken = default)
+        {
+            var result = await _mediator.Send(request,cancellationToken);
+            return Ok(result); // handle if null noContent
+        }
+
+        [HttpPost]
+        [Route("userById")] //testing
+        public async Task<ActionResult> GetUserById([FromBody] UserGetByIdQuery request, CancellationToken cancellationToken = default)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -43,6 +60,14 @@ namespace AdaTranslation.API.Controllers
             }
 
             return Ok(userDtos);
+        }
+
+        [HttpPost]
+        [Route("create")] //testing
+        public async Task Create([FromBody] UserCreateDto user, CancellationToken cancellationToken = default)
+        {
+            var command = new UserCreateCommand(user);
+            await _mediator.Send(command, cancellationToken);
         }
 
 

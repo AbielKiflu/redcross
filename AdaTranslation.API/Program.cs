@@ -1,19 +1,18 @@
+using System.Text;
 using AdaTranslation.Application.DependencyInjection;
 using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Infrastructure.DependencyInjection;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-using System.Text;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetCenterQuery).Assembly));
-
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+     
 
 byte[] key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(options =>

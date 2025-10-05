@@ -9,6 +9,8 @@ namespace AdaTranslation.Domain.Interfaces
     public interface IUserRepository
     {  
         Task<UserDto> GetByLogin(UserLoginRequest request, CancellationToken cancellationToken);
+        Task CreateAsync(UserCreateCommand request, CancellationToken cancellationToken);
+        Task UpdateAsync(UserUpdateCommand request, CancellationToken cancellationToken);
 
     }
 }

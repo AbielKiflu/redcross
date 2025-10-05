@@ -9,7 +9,7 @@ namespace AdaTranslation.API.Controllers
     [Route("[Controller]")]
     public class LanguageController: ControllerBase
     {
-        IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public LanguageController(IMediator mediator) => _mediator = mediator;
 

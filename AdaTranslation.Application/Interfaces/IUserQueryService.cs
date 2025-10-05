@@ -9,5 +9,7 @@ namespace AdaTranslation.Application.Interfaces
         Task<IEnumerable<UserDto>> GetByCenterIdAsync(int centerId,CancellationToken cancellationToken);
         Task<IEnumerable<UserDto>> GetByUserRoleIdAsync(UserRole role,CancellationToken cancellationToken);
         Task<IEnumerable<UserDto>> GetByCenterIdAndUserRoleAsync(int centerId, UserRole role,CancellationToken cancellationToken);
+        Task<UserDto> GetUserByIdAsync(int id,CancellationToken cancellationToken);
+        Task<UserDto> GetUserByEmailAsync(string email,CancellationToken cancellationToken);
     }
 }
