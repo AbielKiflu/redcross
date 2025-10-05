@@ -35,6 +35,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddCors(options => options.AddPolicy("FrontendPolicy", policy =>
+{
+    policy.WithOrigins(builder.Configuration["Cors:AllowedOrigins"])
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
+}));
+
 builder.Services.AddControllers();
 
 //Add Swagger services
@@ -51,6 +59,7 @@ if (app.Environment.IsDevelopment())
 
 
 // app.UseHttpsRedirection();
+app.UseCors("FrontendPolicy");
 app.UseAuthentication();
 app.UseAuthorization(); 
 app.MapControllers();
