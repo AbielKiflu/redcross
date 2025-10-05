@@ -10,9 +10,10 @@ The system is built using **Clean Architecture + ASP.NET Core Web API + MediatR 
 
 ## 🎯 Goals
 - Allow **Centers** to request services easily.  
-- Assign and track **Mediators** handling these demands.  
-- Manage **Users**, **Languages**, and **Service details** for efficient coordination.  
-- Provide a transparent workflow for **Demands**, including their **status, type, priority, and timelines**.  
+- Assign and track **Mediators** handling demands.  
+- Manage **Users**, **Languages**,  **Service** and **demands to service** effectively.  
+- Provide a transparent workflow for **Demands**, including their **status, type, priority, and timelines**.
+
 
 ---
 
@@ -21,6 +22,13 @@ The system is built using **Clean Architecture + ASP.NET Core Web API + MediatR 
 The core entities of the system partial design:
 <img width="897" height="744" alt="image" src="https://github.com/user-attachments/assets/5810be4b-a37f-4aaf-a130-edf69d911c0a" />
 
+
+## Main Entities
+
+- **Center** is a place that welcomes refugees
+- **User** can be a mediator admin that coordinate the mediators and demander a client that consumes services for the residents(can be a director asistance director or a CIA)
+- **Service** is the different services provided by the ada mediation service like (Translation, Mediation, sensibilisation, citzenship, workshops incendie tri de dechets etc ...)
+- **Demand** the core part of the system that lets everyone interact (Client can demand a serice of a mediator(specific language) Admin approve the demand based on the availabilities) Mediator tracks his/her missions on their agendas.
 ---
 
 ## 🔄 Workflow
@@ -43,7 +51,8 @@ The core entities of the system partial design:
 ---
 
 ## 🚀 Features (Planned)
-- [x] Create and manage **Centers**  
+- [x] Create and manage **Centers**
+- [ ] Create apis
 - [ ] Register and manage **Users (Mediators Admin and Demander)**
 - [ ] Login oauth using google futur outlook
 - [ ] Define available Services
@@ -51,10 +60,9 @@ The core entities of the system partial design:
 - [ ] Handle unavialabilities (absences and holidays of users)
 - [ ] Let residents participate at least see the presence of mediators in a day
 - [ ] Assign Mediators and manage workload
-- [ ] Support multi-language communication
 - [ ] Add reporting & analytics for demand tracking
 - [ ] Integrate to mail services
-- [ ] Frontend dragable UI components
 - [ ] Integrate to distance and map services
-- [ ] Add to agenda dates
+- [ ] Manage time and suplementary time
+- [ ] Add to agenda of a calander for an alarm
 
