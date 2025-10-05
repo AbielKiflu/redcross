@@ -35,17 +35,24 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add controllers
 builder.Services.AddControllers();
+
+//Add Swagger services
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Middleware pipeline
-// app.UseHttpsRedirection(); // Uncomment if HTTPS is configured
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+
+// app.UseHttpsRedirection();
 app.UseAuthentication();
-app.UseAuthorization();
-
+app.UseAuthorization(); 
 app.MapControllers();
 
 app.Run();
