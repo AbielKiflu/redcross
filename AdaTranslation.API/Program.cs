@@ -5,16 +5,17 @@ using AdaTranslation.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-
+// Add application services
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetCenterQuery).Assembly));
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-     
 
-byte[] key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+// Configure JWT authentication
+var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -34,14 +35,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
-
+// Add controllers
 builder.Services.AddControllers();
-WebApplication app = builder.Build();
 
+var app = builder.Build();
 
-//app.UseHttpsRedirection();
+// Middleware pipeline
+// app.UseHttpsRedirection(); // Uncomment if HTTPS is configured
 
 app.UseAuthentication();
 app.UseAuthorization();
