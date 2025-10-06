@@ -1,6 +1,6 @@
 ﻿using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.DTOs.Responses;
-using AdaTranslation.Application.Services; 
+using AdaTranslation.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,19 +22,23 @@ namespace AdaTranslation.Infrastructure.Services
         { 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+             
+            var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpireMinutes"]));
 
             var claims = new[]
-            {
+           {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.UserRole.ToString()),
                 new Claim("Center", user.Center.Description.ToString())
             };
-
-            var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
-
-            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpireMinutes"]));
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
@@ -49,7 +53,9 @@ namespace AdaTranslation.Infrastructure.Services
                 user.Id,
                 $"{user.FirstName} {user.LastName}",
                 tokenHandler.WriteToken(token),
-                 expires
+                user.UserRole.ToString(),
+                user.Center.Description.ToString(),
+                expires
             );
         }
  

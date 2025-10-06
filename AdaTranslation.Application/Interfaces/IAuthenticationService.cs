@@ -1,7 +1,7 @@
 ﻿using AdaTranslation.Application.DTOs;
 using AdaTranslation.Application.DTOs.Responses;
 
-namespace AdaTranslation.Application.Services
+namespace AdaTranslation.Application.Interfaces
 {
     /// <summary>
     /// Auth service using jwt and oauth

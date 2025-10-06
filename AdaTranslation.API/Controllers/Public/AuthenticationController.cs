@@ -1,6 +1,6 @@
 using AdaTranslation.Application.DTOs;
+using AdaTranslation.Application.Interfaces;
 using AdaTranslation.Application.Queries.User;
-using AdaTranslation.Application.Services;
 
 using MediatR;
 

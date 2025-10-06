@@ -35,9 +35,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+
 builder.Services.AddCors(options => options.AddPolicy("FrontendPolicy", policy =>
 {
-    policy.WithOrigins(builder.Configuration["Cors:AllowedOrigins"])
+    policy.WithOrigins(allowedOrigins ?? Array.Empty<string>())
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials();
