@@ -3,7 +3,8 @@
     public class Language
     {
         public int Id { get; private set; }
-        public string Description { get; private set; }
-        public ICollection<UserLanguage> UserLanguages { get; private set; } = [];
+
+        public required string Description { get; set; }
+        public ICollection<UserLanguage> UserLanguages { get; private set; } = new HashSet<UserLanguage>();
     }
 }

@@ -1,6 +1,8 @@
-﻿using AdaTranslation.Application.Interfaces;
+﻿using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.Services.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
@@ -25,14 +27,16 @@ namespace AdaTranslation.Infrastructure.Repositories
 
             throw new KeyNotFoundException($"Service with ID {id} was not found.");
         }
-        public async Task CreateAsync(Service service, CancellationToken cancellationToken = default)
+        public async Task CreateAsync(string description, CancellationToken cancellationToken = default)
         {
-            await _context.Services.AddAsync(service, cancellationToken);
+            var newService = new Service() { Description = description };
+            await _context.Services.AddAsync(newService, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
-        public async Task UpdateAsync(Service service, CancellationToken cancellationToken = default)
+        public async Task UpdateAsync(ServiceDto service, CancellationToken cancellationToken = default)
         {
-            _context.Services.Update(service);
+            var updateService = new Service { Id = service.Id ,Description = service.Description };
+            _context.Services.Update(updateService);
             await _context.SaveChangesAsync(cancellationToken);
         }
         public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)

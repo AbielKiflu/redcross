@@ -1,8 +1,8 @@
-﻿using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Domain.Interfaces;
+﻿using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Infrastructure.Data;
 using AdaTranslation.Infrastructure.Repositories;
 using AdaTranslation.Infrastructure.Services;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +19,6 @@ namespace AdaTranslation.Infrastructure.DependencyInjection
                 options.UseSqlServer(configuration.GetConnectionString("Connection")));
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-
             services.AddScoped<ICenterRepository, CenterRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();

@@ -1,5 +1,6 @@
-﻿using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Application.Queries.UserLanguage;
+﻿using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.UserLanguages.Commands.CreateUserLanguage;
+using AdaTranslation.Application.UserLanguages.Commands.UpdateUserLanguage;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {

@@ -1,5 +1,6 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.Queries.Center;
+﻿using AdaTranslation.Application.Centers.Dtos;
+using AdaTranslation.Application.Centers.Queries.GetCenterById;
+using AdaTranslation.Application.Centers.Queries.GetCenters;
 using AdaTranslation.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,19 +19,16 @@ namespace AdaTranslation.API.Controllers
         }
 
         [HttpGet]
-        public async Task<PagedResult<CenterDto>> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken=default)
+        public async Task<PagedResult<CenterDto>> GetAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken=default)
         {
-            var query = new GetCenterQuery
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            };
+            var page = new Page(pageNumber, pageSize);
+            var query = new GetCenterQuery(page);
 
             return await _mediator.Send(query, cancellationToken);
         }
       
         [HttpGet("{id}")]
-        public async Task<CenterDto> GetById(int id, CancellationToken cancellationToken)
+        public async Task<CenterDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetCenterByIdQuery{ Id = id}, cancellationToken);
         }

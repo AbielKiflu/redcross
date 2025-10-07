@@ -1,7 +1,8 @@
 using System.Text;
+using AdaTranslation.Application.Centers.Queries.GetCenters;
 using AdaTranslation.Application.DependencyInjection;
-using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Infrastructure.DependencyInjection;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

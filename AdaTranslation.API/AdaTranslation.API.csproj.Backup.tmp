@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Demander\**" />
+    <Compile Remove="Controllers\Mediator\**" />
+    <Content Remove="Controllers\Demander\**" />
+    <Content Remove="Controllers\Mediator\**" />
+    <EmbeddedResource Remove="Controllers\Demander\**" />
+    <EmbeddedResource Remove="Controllers\Mediator\**" />
+    <None Remove="Controllers\Demander\**" />
+    <None Remove="Controllers\Mediator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdaTranslation.Application\AdaTranslation.Application.csproj" />
+    <ProjectReference Include="..\AdaTranslation.Infrastructure\AdaTranslation.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

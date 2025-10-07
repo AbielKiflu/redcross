@@ -1,6 +1,9 @@
-﻿using AdaTranslation.Application.Queries.Service;
+﻿using AdaTranslation.Application.Services.Commands.CreateService;
+using AdaTranslation.Application.Services.Commands.DeleteService;
+using AdaTranslation.Application.Services.Commands.UpdateService;
+using AdaTranslation.Application.Services.Queries.GetServiceById;
+using AdaTranslation.Application.Services.Queries.GetServices;
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
@@ -13,14 +16,14 @@ namespace AdaTranslation.API.Controllers
         public ServiceController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default)
         {
             var query = await _mediator.Send(new GetServiceQuery(), cancellationToken);
             return Ok(query);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id,CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetByIdAsync(int id,CancellationToken cancellationToken = default)
         {
             var query = await _mediator.Send(new GetServiceByIdQuery(id), cancellationToken);
             return Ok(query);
@@ -28,7 +31,7 @@ namespace AdaTranslation.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] CreateServiceCommand command)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateServiceCommand command)
         {
             await _mediator.Send(command);
             return NoContent();
@@ -44,7 +47,7 @@ namespace AdaTranslation.API.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        public async Task<IActionResult> Delete([FromBody] DeleteServiceCommand command)
+        public async Task<IActionResult> DeleteAsync([FromBody] DeleteServiceCommand command)
         {
             await _mediator.Send(command);
             return NoContent();

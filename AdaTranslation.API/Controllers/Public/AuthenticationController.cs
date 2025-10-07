@@ -1,9 +1,7 @@
-using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.Interfaces;
-using AdaTranslation.Application.Queries.User;
-
+using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.Users.Dtos;
+using AdaTranslation.Application.Users.Queries.UserLogin;
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers.Public
@@ -23,7 +21,7 @@ namespace AdaTranslation.API.Controllers.Public
             _mediator = mediator;
         }
 
-        [HttpPost("login")]
+        [HttpPost("login")]//Replace UserLoginRequest by email or dtologin
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request, CancellationToken cancellationToken)
         {
             try
