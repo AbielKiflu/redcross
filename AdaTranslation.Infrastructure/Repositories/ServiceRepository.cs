@@ -2,7 +2,6 @@
 using AdaTranslation.Application.Services.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories

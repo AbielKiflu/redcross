@@ -11,7 +11,7 @@ namespace AdaTranslation.Application.UserLanguages.Commands.UpdateUserLanguage
 
         public async Task Handle(UpdateUserLanguageCommand request, CancellationToken cancellationToken)
         {
-            
+            await _userLanguageRepository.UpdateAsync(request.userLanguageUpdate, cancellationToken);
         }
     }
 }

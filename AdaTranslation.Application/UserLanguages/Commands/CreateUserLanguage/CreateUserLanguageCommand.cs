@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using AdaTranslation.Application.UserLanguages.Dtos;
+using MediatR;
 
 namespace AdaTranslation.Application.UserLanguages.Commands.CreateUserLanguage
 {
-    public record CreateUserLanguageCommand(int languageId,long userId) : IRequest;
+    public record CreateUserLanguageCommand(UserLanguageCreateDto userLanguageCreate) : IRequest;
 }

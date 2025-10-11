@@ -11,7 +11,7 @@ namespace AdaTranslation.Application.UserLanguages.Commands.CreateUserLanguage
 
         public async Task Handle(CreateUserLanguageCommand request, CancellationToken cancellationToken)
         {
-            
+            await _userLanguageRepository.CreateAsync(request.userLanguageCreate, cancellationToken);
         }
     }
 }

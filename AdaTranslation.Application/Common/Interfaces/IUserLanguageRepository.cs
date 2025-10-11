@@ -1,15 +1,14 @@
-﻿using AdaTranslation.Application.UserLanguages.Commands.CreateUserLanguage;
-using AdaTranslation.Application.UserLanguages.Commands.UpdateUserLanguage;
+﻿using AdaTranslation.Application.UserLanguages.Dtos;
 
 namespace AdaTranslation.Application.Common.Interfaces
 {
     /// <summary>
-    /// 
+    /// Create and update user language
     /// </summary>
     public interface IUserLanguageRepository
     {
-        Task CreateAsync(CreateUserLanguageCommand request, CancellationToken cancellationToken);
-        Task UpdateAsync(UpdateUserLanguageCommand request, CancellationToken cancellationToken);
-
+        Task CreateAsync(UserLanguageCreateDto createUserLanguage,CancellationToken cancellationToken);
+        Task UpdateAsync(UserLanguageUpdateDto updateUserLanguage,CancellationToken cancellationToken);
+        Task DeleteAsync(int Id, CancellationToken cancellationToken);
     }
 }

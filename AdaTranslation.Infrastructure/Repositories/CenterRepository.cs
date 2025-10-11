@@ -3,14 +3,15 @@ using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Mappers;
 using AdaTranslation.Domain;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {
     public class CenterRepository(ApplicationDbContext context) : ICenterRepository
     {
-        private readonly ApplicationDbContext _context= context;
-         
+        private readonly ApplicationDbContext _context = context;
+
         public async Task<PagedResult<CenterDto>> Get(Page page, CancellationToken cancellationToken)
         {
             var query = _context.Centers
@@ -40,7 +41,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                         .ToListAsync(cancellationToken);
 
             if (page.PageNumber < 1 || page.PageSize < 1)
-                throw new ArgumentException("Invalid paging parameters."); 
+                throw new ArgumentException("Invalid paging parameters.");
 
             return new PagedResult<CenterDto>
             {
@@ -54,7 +55,7 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task<CenterDto> GetById(int id, CancellationToken cancellationToken)
         {
-            var result= await _context.Centers
+            var result = await _context.Centers
                         .AsNoTracking()
                         .Where(c => c.Id == id)
                          .Select(c => new CenterDto
