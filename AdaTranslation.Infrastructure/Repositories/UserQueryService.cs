@@ -1,12 +1,9 @@
 ﻿using System.Data;
-
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Mappers;
 using AdaTranslation.Application.Users.Dtos;
-using AdaTranslation.Domain.Entities;
 using AdaTranslation.Domain.Enums;
 using AdaTranslation.Infrastructure.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories

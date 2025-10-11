@@ -9,7 +9,6 @@ namespace AdaTranslation.Application.Centers.Dtos
      string Contact,
      List<UserDto> Users
  );
-
 }
 
 

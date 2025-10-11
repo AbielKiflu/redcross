@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class CenterController : ControllerBase
+    [Route("api/[controller]")]
+    public class CentersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public CenterController(IMediator mediator)
+        public CentersController(IMediator mediator)
         {
             _mediator = mediator;
         }

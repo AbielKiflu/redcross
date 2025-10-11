@@ -12,7 +12,7 @@ namespace AdaTranslation.Application.Users.Dtos
         DateTime? PauseStartDate,
         DateTime? PauseEndDate,
         string? GoogleId,
-        CenterDto Center,
+        CenterBaseDto Center,
         string UserRole,
         List<LanguageDto> Languages
 );

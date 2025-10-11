@@ -18,12 +18,11 @@ namespace AdaTranslation.Application.Common.Mappers
                 PauseStartDate: user.PauseStartDate,
                 PauseEndDate: user.PauseEndDate,
                 GoogleId: user.GoogleId,
-                Center: new CenterDto(
+                Center: new CenterBaseDto(
                     Id: user.Center.Id,
                     Description: user.Center.Description,
                     Address: user.Center.Address,
-                    Contact: user.Center.Contact,
-                    Users: []
+                    Contact: user.Center.Contact
                 ),
                 UserRole: user.UserRole.ToString(),
                 Languages: [.. user.UserLanguages

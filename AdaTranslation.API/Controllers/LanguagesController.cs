@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("[Controller]")]
-    public class LanguageController: ControllerBase
+    [Route("api/[Controller]")]
+    public class LanguagesController: ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public LanguageController(IMediator mediator) => _mediator = mediator;
+        public LanguagesController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default) 
