@@ -23,7 +23,8 @@ namespace AdaTranslation.Infrastructure.Configurations
                    .OnDelete(DeleteBehavior.Cascade);
            
             builder.HasIndex(ul => new { ul.UserId, ul.LanguageId })
-                   .IsUnique();  
+                   .IsUnique()
+                   .HasDatabaseName("UQ_User_Language");
         }
     }
 }
