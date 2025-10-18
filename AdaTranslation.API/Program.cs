@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Json.Serialization;
+
 using AdaTranslation.Application.Centers.Queries.GetCenters;
 using AdaTranslation.Application.DependencyInjection;
 using AdaTranslation.Infrastructure.DependencyInjection;
@@ -47,7 +49,12 @@ builder.Services.AddCors(options => options.AddPolicy("FrontendPolicy", policy =
     //.AllowCredentials(); //Skip credentials for the moment
 }));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
+
 
 //Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
