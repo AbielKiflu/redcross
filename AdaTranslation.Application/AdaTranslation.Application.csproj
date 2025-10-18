@@ -22,4 +22,8 @@
     <ProjectReference Include="..\AdaTranslation.Domain\AdaTranslation.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Demands\Queries\" />
+  </ItemGroup>
+
 </Project>
