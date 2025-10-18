@@ -1,8 +1,9 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Demands.Dtos;
 using AdaTranslation.Domain.Entities;
-using AdaTranslation.Domain.Enums;
 using AdaTranslation.Infrastructure.Data;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {
@@ -29,6 +30,52 @@ namespace AdaTranslation.Infrastructure.Repositories
                 CreatedDate = DateTime.UtcNow
             };
             await _context.Demands.AddAsync(newDemand, cancellationToken);
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<int> UpdateAdminAsync(DemandUpdateAdmin demand, CancellationToken cancellationToken = default)
+        {
+            var result = await _context.Demands
+                   .AsNoTracking()
+                   .FirstAsync(d => d.Id == demand.Id, cancellationToken);
+
+            var updateDemand = new Demand()
+            {
+                Id = result.Id,
+                Description = result.Description,
+                StartDate = demand.StartDate,
+                FinishDate = demand.FinishDate,
+                Priority = result.Priority,
+                DemandType = demand.DemandType,
+                Status = demand.Status,
+                CenterId = result.CenterId,
+                CreatedById = result.CreatedById,
+                CreatedDate = result.CreatedDate,
+            };
+            _context.Demands.Update(updateDemand);
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<int> UpdateAsync(DemandUpdate demand, CancellationToken cancellationToken = default)
+        {
+            var result = await _context.Demands
+                 .AsNoTracking()
+                 .FirstAsync(d => d.Id == demand.Id, cancellationToken);
+
+            var updateDemand = new Demand()
+            {
+                Id = result.Id,
+                Description = result.Description,
+                StartDate = result.StartDate,// Maybe allow change the dates and some other datas
+                FinishDate = result.FinishDate,
+                Priority = result.Priority,
+                DemandType = result.DemandType,
+                Status = demand.Status,
+                CenterId = result.CenterId,
+                CreatedById = result.CreatedById,
+                CreatedDate = result.CreatedDate,
+            };
+            _context.Demands.Update(updateDemand);
             return await _context.SaveChangesAsync(cancellationToken);
         }
     }

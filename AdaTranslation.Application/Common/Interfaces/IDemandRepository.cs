@@ -8,5 +8,7 @@ namespace AdaTranslation.Application.Common.Interfaces
     public interface IDemandRepository
     {
         Task<int> CreateAsync(DemandCreateDto demand, CancellationToken cancellationToken = default);
+        Task<int> UpdateAdminAsync(DemandUpdateAdmin demand, CancellationToken cancellationToken = default);
+        Task<int> UpdateAsync(DemandUpdate demand, CancellationToken cancellationToken = default);
     }
 }
