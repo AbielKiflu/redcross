@@ -1,7 +1,7 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.DTOs.Mappers;
-using AdaTranslation.Application.Queries.User;
-using AdaTranslation.Domain.Interfaces;
+﻿using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.Common.Mappers;
+using AdaTranslation.Application.Users.Dtos;
+using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,24 +11,26 @@ namespace AdaTranslation.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _context = context;
 
-        public async Task CreateAsync(UserCreateCommand request, CancellationToken cancellationToken)
+        public async Task CreateAsync(UserCreateDto user, CancellationToken cancellationToken)
         {
-            var user = new Domain.Entities.User
+           
+            var newUser = new User
             {
-                FirstName = request.newUser.FirstName,
-                LastName = request.newUser.LastName,
-                Email = request.newUser.Email,
-                CenterId = request.newUser.CenterId,
-                UserRole = request.newUser.UserRole,
-                Telephone = request.newUser.Telephone,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                CenterId = user.CenterId,
+                UserRole = user.UserRole,
+                Telephone = user.Telephone,
             };
-            await _context.Users.AddAsync(user, cancellationToken);
+
+            await _context.Users.AddAsync(newUser, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<UserDto> GetByLogin(UserLoginRequest request, CancellationToken cancellationToken)
+        public async Task<UserDto> GetByLogin(string email, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(request.Email))
+            if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email is required.");
 
             var user = await _context.Users
@@ -36,25 +38,28 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .Include(u => u.Center)
                 .Include(u => u.UserLanguages)
                     .ThenInclude(ul => ul.Language)
-                .SingleOrDefaultAsync(u => u.Email == request.Email); 
+                .SingleOrDefaultAsync(u => u.Email == email); 
 
            if (user == null)
                 throw new UnauthorizedAccessException("Invalid credentials"); 
             return UserMapper.ToUserDto(user);
         }
 
-        public async Task UpdateAsync(UserUpdateCommand request, CancellationToken cancellationToken)
+        public async Task UpdateAsync(UserUpdateDto user, CancellationToken cancellationToken)
         {
-            var user = new Domain.Entities.User
-            {
-                FirstName = request.updateUser.FirstName,
-                LastName = request.updateUser.LastName,
-                CenterId = request.updateUser.CenterId,
-                UserRole = request.updateUser.UserRole,
-                Telephone = request.updateUser.Telephone,
-            };
-            _context.Users.Update(user);
+            var result = await _context.Users
+           .FirstAsync(u => u.Id == user.Id, cancellationToken);
+
+            result.FirstName = user.FirstName;
+            result.LastName = user.LastName;
+            result.CenterId = user.CenterId;
+            result.UserRole = user.UserRole;
+            result.Telephone = user.Telephone; 
+
+            _context.Users.Update(result);
+
             await _context.SaveChangesAsync(cancellationToken);
+
         }
     }
 }

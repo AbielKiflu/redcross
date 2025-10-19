@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers.Public
 {
-    [Controller]
-    [Route("[Controller]")]
+    [ApiController]
+    [Route("api/[Controller]")]
     public class InfoController : ControllerBase
     {
         [AllowAnonymous]

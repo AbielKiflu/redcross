@@ -1,7 +1,10 @@
 using System.Text;
+using System.Text.Json.Serialization;
+
+using AdaTranslation.Application.Centers.Queries.GetCenters;
 using AdaTranslation.Application.DependencyInjection;
-using AdaTranslation.Application.Queries.Center;
 using AdaTranslation.Infrastructure.DependencyInjection;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -35,18 +38,23 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
 
 
 builder.Services.AddCors(options => options.AddPolicy("FrontendPolicy", policy =>
 {
     policy.WithOrigins(allowedOrigins ?? Array.Empty<string>())
     .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials();
+    .AllowAnyHeader();
+    //.AllowCredentials(); //Skip credentials for the moment
 }));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
+
 
 //Add Swagger services
 builder.Services.AddEndpointsApiExplorer();

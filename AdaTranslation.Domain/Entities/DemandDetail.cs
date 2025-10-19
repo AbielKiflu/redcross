@@ -3,6 +3,7 @@
     public class DemandDetail
     {
         public int Id { get; set; }
+
         public int DemandId { get; set; }
         public int ServiceId { get; set; }
         public required string ResponsiblePersonEmail { get; set; }

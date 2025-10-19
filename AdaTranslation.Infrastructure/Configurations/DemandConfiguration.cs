@@ -23,15 +23,15 @@ namespace AdaTranslation.Infrastructure.Configurations
                    .IsRequired();
 
             builder.Property(d => d.Priority)
-                   .HasConversion<string>()
+                   .HasConversion<int>()
                    .HasMaxLength(20);
-
+           
             builder.Property(d => d.Status)
-                   .HasConversion<string>()
+                   .HasConversion<int>()
                    .HasMaxLength(20);
 
             builder.Property(d => d.DemandType)
-                   .HasConversion<string>() 
+                   .HasConversion<int>() 
                    .HasMaxLength(20);
 
             builder.Property(d => d.CreatedDate)

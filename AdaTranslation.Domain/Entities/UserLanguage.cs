@@ -2,10 +2,11 @@
 {
     public class UserLanguage
     {
-        public int Id { get; private set; }
-        public long UserId { get; private set; }
-        public int LanguageId { get; private set; } 
-        public User User { get; private set; } = null!;
-        public Language Language { get; private set; } = null!;  
+        public int Id { get; set; }
+
+        public long UserId { get; set; }
+        public int LanguageId { get; set; }
+        public  User User { get; set; } = null!;
+        public  Language Language { get; set; } = null!;
     }
 }

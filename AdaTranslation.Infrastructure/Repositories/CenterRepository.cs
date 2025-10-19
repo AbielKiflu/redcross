@@ -1,18 +1,18 @@
-﻿using AdaTranslation.Application.DTOs;
-using AdaTranslation.Application.DTOs.Mappers;
-using AdaTranslation.Application.Queries.Center;
+﻿using AdaTranslation.Application.Centers.Dtos;
+using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.Common.Mappers;
 using AdaTranslation.Domain;
-using AdaTranslation.Domain.Interfaces;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {
     public class CenterRepository(ApplicationDbContext context) : ICenterRepository
     {
-        private readonly ApplicationDbContext _context= context;
-         
-        public async Task<PagedResult<CenterDto>> Get(GetCenterQuery request, CancellationToken cancellationToken)
+        private readonly ApplicationDbContext _context = context;
+
+        public async Task<PagedResult<CenterDto>> Get(Page page, CancellationToken cancellationToken)
         {
             var query = _context.Centers
                         .AsNoTracking()
@@ -27,8 +27,8 @@ namespace AdaTranslation.Infrastructure.Repositories
 
             var items = await query
                 .OrderBy(c => c.Description)
-                .Skip((request.PageNumber - 1) * request.PageSize)
-                .Take(request.PageSize)
+                .Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize)
                 .Select(c => new CenterDto
                         (
                             c.Id,
@@ -40,24 +40,24 @@ namespace AdaTranslation.Infrastructure.Repositories
                         )
                         .ToListAsync(cancellationToken);
 
-            if (request.PageNumber < 1 || request.PageSize < 1)
-                throw new ArgumentException("Invalid paging parameters."); 
+            if (page.PageNumber < 1 || page.PageSize < 1)
+                throw new ArgumentException("Invalid paging parameters.");
 
             return new PagedResult<CenterDto>
             {
                 Items = items,
                 TotalCount = totalCount,
-                PageNumber = request.PageNumber,
-                PageSize = request.PageSize
+                PageNumber = page.PageNumber,
+                PageSize = page.PageSize
             };
 
         }
 
-        public async Task<CenterDto> GetById(GetCenterByIdQuery request, CancellationToken cancellationToken)
+        public async Task<CenterDto> GetById(int id, CancellationToken cancellationToken)
         {
-            var result= await _context.Centers
+            var result = await _context.Centers
                         .AsNoTracking()
-                        .Where(c => c.Id == request.Id)
+                        .Where(c => c.Id == id)
                          .Select(c => new CenterDto
                             (
                                 c.Id,

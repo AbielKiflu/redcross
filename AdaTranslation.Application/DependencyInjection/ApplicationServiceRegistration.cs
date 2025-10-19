@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.DTOs;
+﻿using AdaTranslation.Application.Common.Validators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
