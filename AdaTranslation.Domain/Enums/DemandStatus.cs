@@ -6,10 +6,9 @@
     public enum DemandStatus
     {
         Pending = 0, // just created
-        Approved = 1,
-        Rejected = 2,
-        InProgress = 3, // viewed but in process
-        Completed = 4,
-        Cancelled = 5
+        Rejected = 1,
+        InProgress = 2, // viewed but in process
+        Completed = 3,
+        Cancelled = 4
     }
 }
