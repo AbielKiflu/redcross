@@ -11,7 +11,11 @@ namespace AdaTranslation.Infrastructure.Configurations
             builder.ToTable(nameof(Demand));
  
             builder.HasKey(d => d.Id);
-             
+            
+            builder.Property(d => d.Subject)
+                   .IsRequired()
+                   .HasMaxLength(100);
+
             builder.Property(d => d.Description)
                    .IsRequired()
                    .HasMaxLength(500);

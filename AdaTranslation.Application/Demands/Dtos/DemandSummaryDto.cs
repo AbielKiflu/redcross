@@ -5,7 +5,8 @@ namespace AdaTranslation.Application.Demands.Dtos
     public class DemandSummaryDto
     {
         public long Id { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public required string Subject { get; set; }
+        public required string Description { get; set; }
         public DemandPriority Priority { get; set; }
         public DemandStatus Status { get; set; }
         public DemandType DemandType { get; set; }

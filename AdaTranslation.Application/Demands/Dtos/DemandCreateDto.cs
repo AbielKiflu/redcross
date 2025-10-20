@@ -4,7 +4,8 @@ namespace AdaTranslation.Application.Demands.Dtos
 {
     public class DemandCreateDto
     {
-        public string Description { get; set; } = string.Empty;
+        public required string Subject { get; set; }
+        public required string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public DemandPriority Priority { get; set; } = DemandPriority.Normal;

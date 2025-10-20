@@ -42,7 +42,8 @@ namespace AdaTranslation.Infrastructure.Repositories
                     CenterName = d.Center.Description,
                     CreatedByUserName = d.CreatedBy.FirstName,
                     CreatedDate = d.CreatedDate,
-                    Description = d.Description
+                    Description = d.Description,
+                    Subject = d.Subject
                 })
                 .ToListAsync(cancellationToken);
 
@@ -69,6 +70,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                 Id = id,
                 CenterName = result.Center.Description,
                 Description = result.Description,
+                Subject = result.Subject,
                 CreatedByUserName = result.CreatedBy.FirstName,
                 CreatedDate = result.CreatedDate,
                 DemandType = result.DemandType,
@@ -86,6 +88,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                 StartDate = demand.StartDate,
                 FinishDate = demand.FinishDate,
                 Priority = demand.Priority,
+                Subject = demand.Subject,
                 DemandType = demand.DemandType,
                 Status = demand.Status,
                 CenterId = 1, //Get from claim
@@ -105,6 +108,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var updateDemand = new Demand()
             {
                 Id = result.Id,
+                Subject = result.Subject,
                 Description = result.Description,
                 StartDate = demand.StartDate,
                 FinishDate = demand.FinishDate,
@@ -128,6 +132,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var updateDemand = new Demand()
             {
                 Id = result.Id,
+                Subject = result.Subject,
                 Description = result.Description,
                 StartDate = result.StartDate,// Maybe allow change the dates and some other datas
                 FinishDate = result.FinishDate,
