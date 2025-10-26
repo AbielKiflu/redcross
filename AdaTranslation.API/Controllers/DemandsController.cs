@@ -12,7 +12,7 @@ using Page = AdaTranslation.Domain.Page;
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/demands")]
     public class DemandsController: ControllerBase
     {
         private readonly IMediator _mediator;

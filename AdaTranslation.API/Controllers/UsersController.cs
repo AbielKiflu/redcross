@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UsersController: ControllerBase
     {
         private readonly IMediator _mediator;
