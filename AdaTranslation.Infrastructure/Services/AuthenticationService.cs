@@ -51,6 +51,7 @@ namespace AdaTranslation.Infrastructure.Services
             (
                 user.Id,
                 $"{user.FirstName} {user.LastName}",
+                user.Email,
                 tokenHandler.WriteToken(token),
                 user.UserRole.ToString(),
                 user.Center.Description.ToString(),

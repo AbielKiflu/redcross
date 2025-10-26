@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/languages")]
     public class LanguagesController: ControllerBase
     {
         private readonly IMediator _mediator;

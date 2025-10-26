@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers.Public
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authentication;

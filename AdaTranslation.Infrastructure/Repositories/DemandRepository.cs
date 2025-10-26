@@ -36,6 +36,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .Select(d => new DemandSummaryDto
                 {
                     Id = d.Id,
+                    Subject = d.Subject,
                     Status = d.Status,
                     Priority = d.Priority,
                     DemandType = d.DemandType,
@@ -69,6 +70,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             {
                 Id = id,
                 CenterName = result.Center.Description,
+                Subject = result.Subject,
                 Description = result.Description,
                 Subject = result.Subject,
                 CreatedByUserName = result.CreatedBy.FirstName,
@@ -84,6 +86,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
             var newDemand = new Demand() 
             { 
+                Subject = demand.Subject,
                 Description = demand.Description,
                 StartDate = demand.StartDate,
                 FinishDate = demand.FinishDate,

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdaTranslation.API.Controllers.Public
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/public")]
     public class InfoController : ControllerBase
     {
         [AllowAnonymous]
-        [HttpGet("public/info")]
+        [HttpGet("info")]
         public IActionResult PublicInfo()
         {
             return Ok("Public info for residents");
