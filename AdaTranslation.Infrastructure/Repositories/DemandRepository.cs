@@ -36,6 +36,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .Select(d => new DemandSummaryDto
                 {
                     Id = d.Id,
+                    Subject = d.Subject,
                     Status = d.Status,
                     Priority = d.Priority,
                     DemandType = d.DemandType,
@@ -68,6 +69,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             {
                 Id = id,
                 CenterName = result.Center.Description,
+                Subject = result.Subject,
                 Description = result.Description,
                 CreatedByUserName = result.CreatedBy.FirstName,
                 CreatedDate = result.CreatedDate,
@@ -82,6 +84,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
             var newDemand = new Demand() 
             { 
+                Subject = demand.Subject,
                 Description = demand.Description,
                 StartDate = demand.StartDate,
                 FinishDate = demand.FinishDate,
@@ -105,6 +108,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var updateDemand = new Demand()
             {
                 Id = result.Id,
+                Subject = result.Subject,
                 Description = result.Description,
                 StartDate = demand.StartDate,
                 FinishDate = demand.FinishDate,
@@ -128,6 +132,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var updateDemand = new Demand()
             {
                 Id = result.Id,
+                Subject = result.Subject,
                 Description = result.Description,
                 StartDate = result.StartDate,// Maybe allow change the dates and some other datas
                 FinishDate = result.FinishDate,

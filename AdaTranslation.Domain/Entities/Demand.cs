@@ -5,9 +5,8 @@ namespace AdaTranslation.Domain.Entities
     public class Demand
     {
         public int Id { get; set; }
-
-        public required string Description { get; set; }
-
+        public required string Subject { get; set; } 
+        public required string Description { get; set; } 
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
 
