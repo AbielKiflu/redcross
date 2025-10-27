@@ -2,6 +2,7 @@
 using AdaTranslation.Application.UserLanguages.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories
 {
@@ -16,32 +17,75 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task CreateAsync(UserLanguageCreateDto createUserLanguage, CancellationToken cancellationToken)
         {
-            var userLanguage = new UserLanguage()
+            bool exists = await _context.UserLanguages
+                .AnyAsync(ul =>
+                    ul.UserId == createUserLanguage.UserId &&
+                    ul.LanguageId == createUserLanguage.LanguageId,
+                    cancellationToken);
+
+            if (exists)
+                return; // skip duplicate
+
+            var userLanguage = new UserLanguage
             {
                 UserId = createUserLanguage.UserId,
                 LanguageId = createUserLanguage.LanguageId
             };
-            var result = await _context.UserLanguages.AddAsync(userLanguage);
-            await _context.SaveChangesAsync();
+
+            await _context.UserLanguages.AddAsync(userLanguage, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(UserLanguageUpdateDto updateUserLanguage, CancellationToken cancellationToken)
         {
-            var userLanguage = new UserLanguage()
-            {
-                Id = updateUserLanguage.Id,
-                UserId = updateUserLanguage.UserId,
-                LanguageId = updateUserLanguage.LanguageId
-            };
+            var userLanguage = await _context.UserLanguages
+                .FindAsync(new object[] { updateUserLanguage.Id }, cancellationToken);
+
+            if (userLanguage == null)
+                throw new KeyNotFoundException($"UserLanguage with Id {updateUserLanguage.Id} not found");
+
+            userLanguage.UserId = updateUserLanguage.UserId;
+            userLanguage.LanguageId = updateUserLanguage.LanguageId;
 
             _context.UserLanguages.Update(userLanguage);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            _context.Remove(Id);
-            await Task.CompletedTask;
+            var entity = await _context.UserLanguages.FindAsync(new object[] { id }, cancellationToken);
+            if (entity == null) return;
+
+            _context.UserLanguages.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task SyncUserLanguagesAsync(long userId, List<int> newLanguageIds, CancellationToken cancellationToken)
+        {
+            // Load current associations
+            var existingUserLanguages = await _context.UserLanguages
+                .Where(ul => ul.UserId == userId)
+                .ToListAsync(cancellationToken);
+
+            var existingIds = existingUserLanguages.Select(ul => ul.LanguageId).ToList();
+            var toAdd = newLanguageIds.Except(existingIds).ToList();
+            var toRemove = existingUserLanguages.Where(ul => !newLanguageIds.Contains(ul.LanguageId)).ToList();
+
+            // Add new
+            foreach (var langId in toAdd)
+            {
+                await _context.UserLanguages.AddAsync(new UserLanguage
+                {
+                    UserId = userId,
+                    LanguageId = langId
+                }, cancellationToken);
+            }
+
+            // Remove deselected
+            if (toRemove.Any())
+                _context.UserLanguages.RemoveRange(toRemove);
+
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

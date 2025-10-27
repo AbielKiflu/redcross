@@ -3,7 +3,7 @@ using MediatR;
 
 namespace AdaTranslation.Application.Users.Commands.CreateUser
 {
-    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand>
+    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, long>
     {
         private readonly IUserRepository _userRepository;
 
@@ -11,9 +11,10 @@ namespace AdaTranslation.Application.Users.Commands.CreateUser
         {
             _userRepository = userRepository;
         }
-        public async Task Handle(UserCreateCommand request, CancellationToken cancellationToken)
+        public async Task<long> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
-             await _userRepository.CreateAsync(request.user, cancellationToken);
+             var createdId = await _userRepository.CreateAsync(request.user, cancellationToken);
+            return createdId;
         }
     }
 }

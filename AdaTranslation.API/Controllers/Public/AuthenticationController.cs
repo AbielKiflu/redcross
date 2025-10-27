@@ -22,7 +22,7 @@ namespace AdaTranslation.API.Controllers.Public
             _mediator = mediator;
         }
 
-        [HttpPost("login")]//Replace UserLoginRequest by email or dtologin
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request, CancellationToken cancellationToken)
         {
             try

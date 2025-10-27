@@ -11,7 +11,10 @@ namespace AdaTranslation.Infrastructure.Configurations
             builder.ToTable(nameof(UserLanguage));
              
             builder.HasKey(ul => ul.Id);
-             
+
+            builder.HasIndex(ul => new { ul.UserId, ul.LanguageId })
+                    .IsUnique();
+
             builder.HasOne(ul => ul.User)
                    .WithMany(u => u.UserLanguages)
                    .HasForeignKey(ul => ul.UserId)
@@ -21,10 +24,6 @@ namespace AdaTranslation.Infrastructure.Configurations
                    .WithMany(l => l.UserLanguages)
                    .HasForeignKey(ul => ul.LanguageId)
                    .OnDelete(DeleteBehavior.Cascade);
-           
-            builder.HasIndex(ul => new { ul.UserId, ul.LanguageId })
-                   .IsUnique()
-                   .HasDatabaseName("UQ_User_Language");
         }
     }
 }
