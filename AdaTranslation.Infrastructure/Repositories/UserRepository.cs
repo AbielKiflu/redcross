@@ -4,14 +4,18 @@ using AdaTranslation.Application.Users.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-
 namespace AdaTranslation.Infrastructure.Repositories
 {
-    public class UserRepository(ApplicationDbContext context) : IUserRepository
+    public class UserRepository : IUserRepository
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly ApplicationDbContext _context;
 
-        public async Task CreateAsync(UserCreateDto user, CancellationToken cancellationToken)
+        public UserRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<long> CreateAsync(UserCreateDto user, CancellationToken cancellationToken)
         {
            
             var newUser = new User
@@ -26,6 +30,7 @@ namespace AdaTranslation.Infrastructure.Repositories
 
             await _context.Users.AddAsync(newUser, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+            return newUser.Id;
         }
 
         public async Task<UserDto> GetByLogin(string email, CancellationToken cancellationToken)
@@ -37,7 +42,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .AsNoTracking()
                 .Include(u => u.Center)
                 .Include(u => u.UserLanguages)
-                    .ThenInclude(ul => ul.Language)
+                .ThenInclude(ul => ul.Language)
                 .SingleOrDefaultAsync(u => u.Email == email); 
 
            if (user == null)

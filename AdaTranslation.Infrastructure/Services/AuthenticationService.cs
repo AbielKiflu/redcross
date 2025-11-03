@@ -28,15 +28,11 @@ namespace AdaTranslation.Infrastructure.Services
 
             var claims = new[]
            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
-
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
-                new Claim("Center", user.Center.Description.ToString())
+                new Claim("ID", user.Id.ToString()),
+                new Claim("Name", user.FirstName + user.LastName),
+                new Claim("Email", user.Email),
+                new Claim("Center", user.Center.Description),
+                new Claim("Role", user.UserRole.ToString())
             };
 
             var token = new JwtSecurityToken(
