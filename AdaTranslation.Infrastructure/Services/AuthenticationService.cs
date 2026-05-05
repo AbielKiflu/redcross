@@ -1,59 +1,47 @@
-﻿using AdaTranslation.Application.Common.Interfaces;
-using AdaTranslation.Application.Users.Dtos;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using AdaTranslation.Application.Common;
+using AdaTranslation.Application.Common.Interfaces;
+using AdaTranslation.Application.Common.Settings;
+using AdaTranslation.Infrastructure.Data; 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace AdaTranslation.Infrastructure.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-         
-        private readonly IConfiguration _configuration; 
-        public AuthenticationService(IConfiguration configuration)
+        private readonly ITokenService _tokenService;
+        private readonly JwtOptions _options;
+        private readonly ApplicationDbContext _context;
+
+        public AuthenticationService(ITokenService tokenService, 
+            IOptions<JwtOptions> options,
+            ApplicationDbContext context)
         {
-            _configuration = configuration;
+            _tokenService = tokenService;
+            _options = options.Value;
+            _context = context;
         }
 
-        public  LoginResponseDto Login(UserDto user)
-        { 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-             
-            var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+        public async Task<AuthResponse> AuthenticateAsync(string email, string password, CancellationToken cancellationToken)
+        {
 
-            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpireMinutes"]));
+            var user = await _context.Users
+              .AsNoTracking()
+              .Include(u => u.Center)
+              .Include(u => u.UserLanguages)
+                  .ThenInclude(ul => ul.Language)
+              .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
 
-            var claims = new[]
-           {
-                new Claim("ID", user.Id.ToString()),
-                new Claim("Name", user.FirstName + user.LastName),
-                new Claim("Email", user.Email),
-                new Claim("Center", user.Center.Description),
-                new Claim("Role", user.UserRole.ToString())
-            };
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("Invalid credentials.");
+            }
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new LoginResponseDto
-            (
-                user.Id,
-                $"{user.FirstName} {user.LastName}",
-                user.Email,
-                tokenHandler.WriteToken(token),
-                user.UserRole.ToString(),
-                user.Center.Description.ToString(),
-                expires
-            );
+            var token = _tokenService.CreateToken(user);
+            var expires = DateTime.UtcNow.AddMinutes(_options.ExpireMinutes); 
+          
+            return new AuthResponse(Email: user.Email, Token: token, Expiry: expires);
+            
         }
- 
     }
 }
