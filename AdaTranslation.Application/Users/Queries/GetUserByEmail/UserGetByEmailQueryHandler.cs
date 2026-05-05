@@ -5,16 +5,17 @@ using MediatR;
 
 namespace AdaTranslation.Application.Users.Queries.GetUserByEmail
 {
-    public class UserGetByEmailQueryHandler : IRequestHandler<UserGetByEmailQuery, UserDto>
+    public class UserGetByEmailQueryHandler : IRequestHandler<UserGetByEmailQuery, UserDto?>
     {
-        private readonly IUserQueryService _userQueryService;
-        public UserGetByEmailQueryHandler(IUserQueryService userQueryService)
+        private readonly IUserRepository _userRepository;
+        public UserGetByEmailQueryHandler(IUserRepository userRepository)
         {
-            _userQueryService = userQueryService;
+            _userRepository = userRepository;
         }
-        public async Task<UserDto> Handle(UserGetByEmailQuery request, CancellationToken cancellationToken)
+        public async Task<UserDto?> Handle(UserGetByEmailQuery request, CancellationToken cancellationToken)
         {
-            return await _userQueryService.GetUserByEmailAsync(request.email,cancellationToken);
+            var user =  await _userRepository.GetUserByEmailAsync(request.email,cancellationToken);
+            return user;
         }
     }
 }

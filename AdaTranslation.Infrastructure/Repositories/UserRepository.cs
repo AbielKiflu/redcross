@@ -17,23 +17,15 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task<long> CreateAsync(UserCreateDto user, CancellationToken cancellationToken)
         {
-           
-            var newUser = new User
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                CenterId = user.CenterId,
-                UserRole = user.UserRole,
-                Telephone = user.Telephone,
-            };
 
+            var newUser = new User(user.FirstName, user.LastName, user.Email, user.Telephone, user.CenterId, user.UserRole);
+             
             await _context.Users.AddAsync(newUser, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return newUser.Id;
         }
 
-        public async Task<UserDto> GetByLogin(string email, CancellationToken cancellationToken)
+        public async Task<UserDto?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email is required.");
@@ -52,19 +44,20 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task UpdateAsync(UserUpdateDto user, CancellationToken cancellationToken)
         {
+            if (user is null)
+                throw new ArgumentNullException(nameof(user));
+
             var result = await _context.Users
-           .FirstAsync(u => u.Id == user.Id, cancellationToken);
+                .FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
 
-            result.FirstName = user.FirstName;
-            result.LastName = user.LastName;
-            result.CenterId = user.CenterId;
-            result.UserRole = user.UserRole;
-            result.Telephone = user.Telephone; 
+            if (result is null)
+                return;
 
-            _context.Users.Update(result);
+            result.UpdateDetails(user.FirstName, user.LastName, user.Telephone, user.CenterId, user.UserRole);
 
             await _context.SaveChangesAsync(cancellationToken);
-
         }
+
+
     }
 }

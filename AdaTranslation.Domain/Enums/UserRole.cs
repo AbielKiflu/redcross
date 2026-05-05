@@ -5,8 +5,9 @@
     /// </summary>
     public enum UserRole
     {
-        Admin = 1,
-        Mediator = 2,
-        Client = 3
+        Admin,
+        Coordinator,
+        Mediator,
+        Client
     }
 }
