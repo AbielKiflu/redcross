@@ -1,6 +1,4 @@
-using AdaTranslation.Application.Common.Interfaces;
-using AdaTranslation.Application.Users.Dtos;
-using AdaTranslation.Application.Users.Queries.UserLogin;
+using AdaTranslation.Application.Users.Commands.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,25 +8,22 @@ namespace AdaTranslation.API.Controllers.Public
     [Route("api/auth")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IAuthenticationService _authentication;
         private readonly IMediator _mediator;
 
         public AuthenticationController(
-            IAuthenticationService authentication,
             IMediator mediator
             )
         {
-            _authentication = authentication;
             _mediator = mediator;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] UserLoginCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                UserDto user = await _mediator.Send(request, cancellationToken);
-                return Ok(_authentication.Login(user));
+                var user = await _mediator.Send(command, cancellationToken);
+                return Ok(user);
             }
             catch (UnauthorizedAccessException ex)
             {

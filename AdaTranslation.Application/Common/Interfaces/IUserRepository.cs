@@ -7,7 +7,7 @@ namespace AdaTranslation.Application.Common.Interfaces
     /// </summary>
     public interface IUserRepository
     {  
-        Task<UserDto> GetByLogin(string email, CancellationToken cancellationToken);
+        Task<UserDto?> GetUserByEmailAsync(string email, CancellationToken cancellationToken);
         /// <summary>
         /// Creates a user
         /// </summary>

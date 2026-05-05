@@ -1,5 +1,4 @@
 ﻿using AdaTranslation.Application.Users.Dtos;
-
 using FluentValidation;
 
 namespace AdaTranslation.Application.Users.Commands.CreateUser

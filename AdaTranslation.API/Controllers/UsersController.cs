@@ -1,14 +1,8 @@
-﻿using AdaTranslation.Application.Languages.Dtos;
-using AdaTranslation.Application.UserLanguages.Commands.SyncUserLanguages;
+﻿using AdaTranslation.Application.UserLanguages.Commands.SyncUserLanguages;
 using AdaTranslation.Application.Users.Commands.CreateUser;
 using AdaTranslation.Application.Users.Commands.UpdateUser;
 using AdaTranslation.Application.Users.Dtos;
 using AdaTranslation.Application.Users.Queries.GetUserByEmail;
-using AdaTranslation.Application.Users.Queries.GetUserById;
-using AdaTranslation.Application.Users.Queries.GetUsers;
-using AdaTranslation.Application.Users.Queries.GetUsersByCenterId;
-using AdaTranslation.Application.Users.Queries.GetUsersByRole;
-using AdaTranslation.Application.Users.Queries.GetUsersByRoleAndCenterId;
 using AdaTranslation.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,49 +30,8 @@ namespace AdaTranslation.API.Controllers
         }
 
 
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult> GetByIdAsync( int id, CancellationToken cancellationToken = default)
-        {
-            var result = await _mediator.Send(new UserGetByIdQuery(id), cancellationToken);
-            
-            return result is null ? NoContent() : Ok(result);
-        }
-
-        [Authorize]
-        [HttpGet]
-        [Route("filter")]
-        public async Task<IActionResult> GetAsync(
-                        [FromQuery] int? centerId = null,
-                        [FromQuery] int? role = null,
-                        CancellationToken cancellationToken = default)
-        {   
-            IEnumerable<UserDto> results;
-
-            var claims = HttpContext.User.Claims
-            .Select(c => new { c.Type, c.Value })
-            .ToList();
-
-            if (centerId.HasValue && role.HasValue)
-            {
-                results = await _mediator.Send(new UserGetByCenterIdAndUserRoleQuery(centerId.Value, (UserRole)role), cancellationToken);
-            }
-            else if (centerId.HasValue)
-            {
-                results = await _mediator.Send(new UserGetByCenterIdQuery(centerId.Value), cancellationToken);
-            }
-            else if (role.HasValue)
-            {
-                results = await _mediator.Send(new UserGetByUserRoleQuery((UserRole)role.Value), cancellationToken);
-            }
-            else
-            {
-                results = await _mediator.Send(new UserGetAllQuery(), cancellationToken);
-            }
-
-            return results is null ? NoContent() : Ok(results);
-        }
-
+ 
+        
         [HttpPost]
         public async Task CreateAsync([FromBody] UserCreateWithUserLanguageDto user, CancellationToken cancellationToken = default)
         {

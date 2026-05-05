@@ -33,7 +33,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             return newUser.Id;
         }
 
-        public async Task<UserDto> GetByLogin(string email, CancellationToken cancellationToken)
+        public async Task<UserDto?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Email is required.");
