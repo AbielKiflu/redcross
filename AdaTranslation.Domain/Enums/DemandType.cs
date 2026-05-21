@@ -5,8 +5,8 @@
     /// </summary>
     public enum DemandType
     {
-        Site = 0,
-        Telephone = 1,
-        Video = 2,
+        Site,
+        Telephone,
+        Video,
     }
 }

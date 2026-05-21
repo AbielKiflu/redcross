@@ -5,7 +5,9 @@
     /// </summary>
     public enum DemandPriority
     {
-        Normal = 0,
-        Urgent = 1
+        Low,
+        Medium,
+        High,
+        Emergency
     }
 }
