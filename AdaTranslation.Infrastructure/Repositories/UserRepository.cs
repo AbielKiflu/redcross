@@ -53,7 +53,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             if (result is null)
                 return;
 
-            result.UpdateDetails(user.FirstName, user.LastName, user.Telephone, user.CenterId, user.UserRole);
+            result.Update(user.FirstName, user.LastName, user.Telephone, user.CenterId, user.UserRole);
 
             await _context.SaveChangesAsync(cancellationToken);
         }

@@ -1,6 +1,5 @@
 ﻿using AdaTranslation.Application.Demands.Commands.CreateDemand;
 using AdaTranslation.Application.Demands.Commands.UpdateDemand;
-using AdaTranslation.Application.Demands.Commands.UpdateDemandAdmin;
 using AdaTranslation.Application.Demands.Dtos;
 using AdaTranslation.Application.Demands.Queries.GetDemandById;
 using AdaTranslation.Application.Demands.Queries.GetDemands;
@@ -40,14 +39,6 @@ namespace AdaTranslation.API.Controllers
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateDemandCommand command)
-        {
-            await _mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpPut]
-        [Route("update-admin")]
-        public async Task<IActionResult> UpdateAdmin([FromBody] UpdateDemandAdminCommand command)
         {
             await _mediator.Send(command);
             return NoContent();

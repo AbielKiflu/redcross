@@ -14,16 +14,11 @@ namespace AdaTranslation.Domain.Entities
         public DateTime? PauseEndDate { get; private set; }
         public int CenterId { get; private set; }
         public string? GoogleId { get; private set; }
-
-        // Navigation Property for EF Core (kept inside domain or mapped via Data Layer)
         public Center Center { get; private set; } = null!;
         public UserRole UserRole { get; private set; } = UserRole.Mediator;
-
-        // Encapsulated Collection to protect business invariants
         private readonly HashSet<UserLanguage> _userLanguages = new();
         public virtual IReadOnlyCollection<UserLanguage> UserLanguages => _userLanguages;
 
-        // EF Core requires a parameterless constructor
         private User() { }
 
         public User(string firstName, string lastName, string email, string telephone, int centerId, UserRole role)
@@ -40,7 +35,7 @@ namespace AdaTranslation.Domain.Entities
         /// <summary>
         /// Update user
         /// </summary>
-        public void UpdateDetails(string firstName, string lastName, string telephone, int centerId, UserRole role)
+        public void Update(string firstName, string lastName, string telephone, int centerId, UserRole role)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -69,7 +64,7 @@ namespace AdaTranslation.Domain.Entities
         {
             if (start.HasValue && end.HasValue && end.Value < start.Value)
             {
-                throw new InvalidOperationException("The pause end date cannot be earlier than the start date.");
+                throw new ArgumentException("The pause end date cannot be earlier than the start date.");
             }
 
             PauseStartDate = start;

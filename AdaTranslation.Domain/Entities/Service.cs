@@ -2,9 +2,34 @@
 {
     public class Service
     {
-        public int Id { get; set; }
+        private readonly List<DemandDetail> _demandDetails = new();
+        public int Id { get; private set; }
+        public string Description { get; private set; } = string.Empty;
+        public IReadOnlyCollection<DemandDetail> DemandDetails => _demandDetails.AsReadOnly();
 
-        public required string Description { get; set; }
-        public ICollection<DemandDetail> DemandDetails { get; } = new HashSet<DemandDetail>();
+        private Service() { }
+
+        public Service(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("Description cannot be null or empty.", nameof(description));
+
+            Description = description;
+        }
+
+        public Service(int id, string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("Description cannot be null or empty.", nameof(description));
+
+            Description = description;
+            Id= id;
+        }
+
+        public void AddDemandDetail(DemandDetail demandDetail)
+        {
+            _demandDetails.Add(demandDetail);
+        }
+
     }
 }

@@ -28,13 +28,13 @@ namespace AdaTranslation.Infrastructure.Repositories
         }
         public async Task CreateAsync(string description, CancellationToken cancellationToken = default)
         {
-            var newService = new Service() { Description = description };
+            var newService = new Service(description);
             await _context.Services.AddAsync(newService, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
         public async Task UpdateAsync(ServiceDto service, CancellationToken cancellationToken = default)
         {
-            var updateService = new Service { Id = service.Id ,Description = service.Description };
+            var updateService = new Service(service.Id,service.Description);
             _context.Services.Update(updateService);
             await _context.SaveChangesAsync(cancellationToken);
         }

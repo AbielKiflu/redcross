@@ -2,6 +2,7 @@
 using AdaTranslation.Application.Demands.Dtos;
 using AdaTranslation.Domain;
 using AdaTranslation.Domain.Entities;
+using AdaTranslation.Domain.Enums;
 using AdaTranslation.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -82,44 +83,15 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task<int> CreateAsync(DemandCreateDto demand, CancellationToken cancellationToken = default)
         {
-            var newDemand = new Demand() 
-            { 
-                Subject = demand.Subject,
-                Description = demand.Description,
-                StartDate = demand.StartDate,
-                FinishDate = demand.FinishDate,
-                Priority = demand.Priority,
-                DemandType = demand.DemandType,
-                Status = demand.Status,
-                CenterId = 1, //Get from claim
-                CreatedById = 1, //Get from claim
-                CreatedDate = DateTime.UtcNow
-            };
+            var newDemand = new Demand(
+            
+                demand.Subject,
+                demand.Description,
+                1,
+                1,
+                DemandType.Site
+            );
             await _context.Demands.AddAsync(newDemand, cancellationToken);
-            return await _context.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<int> UpdateAdminAsync(DemandUpdateAdmin demand, CancellationToken cancellationToken = default)
-        {
-            var result = await _context.Demands
-                   .AsNoTracking()
-                   .FirstAsync(d => d.Id == demand.Id, cancellationToken);
-
-            var updateDemand = new Demand()
-            {
-                Id = result.Id,
-                Subject = result.Subject,
-                Description = result.Description,
-                StartDate = demand.StartDate,
-                FinishDate = demand.FinishDate,
-                Priority = result.Priority,
-                DemandType = demand.DemandType,
-                Status = demand.Status,
-                CenterId = result.CenterId,
-                CreatedById = result.CreatedById,
-                CreatedDate = result.CreatedDate,
-            };
-            _context.Demands.Update(updateDemand);
             return await _context.SaveChangesAsync(cancellationToken);
         }
 
@@ -129,21 +101,8 @@ namespace AdaTranslation.Infrastructure.Repositories
                  .AsNoTracking()
                  .FirstAsync(d => d.Id == demand.Id, cancellationToken);
 
-            var updateDemand = new Demand()
-            {
-                Id = result.Id,
-                Subject = result.Subject,
-                Description = result.Description,
-                StartDate = result.StartDate,// Maybe allow change the dates and some other datas
-                FinishDate = result.FinishDate,
-                Priority = result.Priority,
-                DemandType = result.DemandType,
-                Status = demand.Status,
-                CenterId = result.CenterId,
-                CreatedById = result.CreatedById,
-                CreatedDate = result.CreatedDate,
-            };
-            _context.Demands.Update(updateDemand);
+            result.Update(demand.Subject, demand.Description,demand.DemandType);
+            _context.Demands.Update(result);
             return await _context.SaveChangesAsync(cancellationToken);
         }
     }

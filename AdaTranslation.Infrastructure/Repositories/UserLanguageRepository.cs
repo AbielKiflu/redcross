@@ -26,11 +26,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             if (exists)
                 return; // skip duplicate
 
-            var userLanguage = new UserLanguage
-            {
-                UserId = createUserLanguage.UserId,
-                LanguageId = createUserLanguage.LanguageId
-            };
+            var userLanguage = new UserLanguage(createUserLanguage.UserId, createUserLanguage.LanguageId);
 
             await _context.UserLanguages.AddAsync(userLanguage, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
@@ -44,8 +40,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             if (userLanguage == null)
                 throw new KeyNotFoundException($"UserLanguage with Id {updateUserLanguage.Id} not found");
 
-            userLanguage.UserId = updateUserLanguage.UserId;
-            userLanguage.LanguageId = updateUserLanguage.LanguageId;
+            userLanguage.Update(updateUserLanguage.UserId, updateUserLanguage.LanguageId);
 
             _context.UserLanguages.Update(userLanguage);
             await _context.SaveChangesAsync(cancellationToken);
@@ -74,11 +69,8 @@ namespace AdaTranslation.Infrastructure.Repositories
             // Add new
             foreach (var langId in toAdd)
             {
-                await _context.UserLanguages.AddAsync(new UserLanguage
-                {
-                    UserId = userId,
-                    LanguageId = langId
-                }, cancellationToken);
+                await _context.UserLanguages.AddAsync(new UserLanguage(userId, langId)
+                , cancellationToken);
             }
 
             // Remove deselected
