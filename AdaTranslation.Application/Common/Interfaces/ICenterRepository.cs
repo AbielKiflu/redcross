@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.Centers.Dtos;
+﻿using AdaTranslation.Application.Features.Centers.Dtos;
 using AdaTranslation.Domain;
 
 namespace AdaTranslation.Application.Common.Interfaces

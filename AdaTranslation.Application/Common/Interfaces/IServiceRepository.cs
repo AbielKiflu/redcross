@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.Services.Dtos;
+﻿using AdaTranslation.Application.Features.Services.Dtos;
 using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.Common.Interfaces

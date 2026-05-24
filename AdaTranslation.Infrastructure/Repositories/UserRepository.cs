@@ -1,8 +1,9 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Mappers;
-using AdaTranslation.Application.Users.Dtos;
+using AdaTranslation.Application.Features.Users.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 namespace AdaTranslation.Infrastructure.Repositories
 {
@@ -53,7 +54,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             if (result is null)
                 return;
 
-            result.UpdateDetails(user.FirstName, user.LastName, user.Telephone, user.CenterId, user.UserRole);
+            result.Update(user.FirstName, user.LastName, user.Telephone, user.CenterId, user.UserRole);
 
             await _context.SaveChangesAsync(cancellationToken);
         }

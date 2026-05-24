@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.Services.Dtos;
+﻿using AdaTranslation.Application.Features.Services.Dtos;
 using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.Common.Mappers
@@ -7,7 +7,7 @@ namespace AdaTranslation.Application.Common.Mappers
     {
         public static Service ToService(this ServiceDto serviceDto)
         {
-            return new Service { Id = serviceDto.Id, Description = serviceDto.Description };
+            return new Service(serviceDto.Id, serviceDto.Description);
         }
 
         public static ServiceDto ToServiceDto(this Service service) 

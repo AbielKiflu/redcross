@@ -1,11 +1,9 @@
-﻿using AdaTranslation.Application.UserLanguages.Commands.SyncUserLanguages;
-using AdaTranslation.Application.Users.Commands.CreateUser;
-using AdaTranslation.Application.Users.Commands.UpdateUser;
-using AdaTranslation.Application.Users.Dtos;
-using AdaTranslation.Application.Users.Queries.GetUserByEmail;
-using AdaTranslation.Domain.Enums;
+﻿using AdaTranslation.Application.Features.Users.Dtos;
+using AdaTranslation.Application.Features.UserLanguages.Commands.SyncUserLanguages;
+using AdaTranslation.Application.Features.Users.Commands.CreateUser;
+using AdaTranslation.Application.Features.Users.Commands.UpdateUser;
+using AdaTranslation.Application.Features.Users.Queries.GetUserByEmail;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers

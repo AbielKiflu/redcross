@@ -1,8 +1,8 @@
-﻿using AdaTranslation.Application.Services.Commands.CreateService;
-using AdaTranslation.Application.Services.Commands.DeleteService;
-using AdaTranslation.Application.Services.Commands.UpdateService;
-using AdaTranslation.Application.Services.Queries.GetServiceById;
-using AdaTranslation.Application.Services.Queries.GetServices;
+﻿using AdaTranslation.Application.Features.Services.Commands.CreateService;
+using AdaTranslation.Application.Features.Services.Commands.DeleteService;
+using AdaTranslation.Application.Features.Services.Commands.UpdateService;
+using AdaTranslation.Application.Features.Services.Queries.GetServiceById;
+using AdaTranslation.Application.Features.Services.Queries.GetServices;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
