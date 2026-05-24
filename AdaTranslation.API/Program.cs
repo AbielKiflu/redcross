@@ -1,13 +1,12 @@
 using System.Text;
 using System.Text.Json.Serialization;
 
-using AdaTranslation.Application.Centers.Queries.GetCenters;
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Settings;
 using AdaTranslation.Application.DependencyInjection;
+using AdaTranslation.Application.Features.Centers.Queries.GetCenters;
 using AdaTranslation.Infrastructure.DependencyInjection;
 using AdaTranslation.Infrastructure.Services;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -68,8 +67,8 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 app.UseCors("FrontendPolicy");
-app.UseAuthentication();
-app.UseAuthorization(); 
+//app.UseAuthentication();
+//app.UseAuthorization(); 
 app.MapControllers();
 
 app.Run();

@@ -1,5 +1,5 @@
-﻿using AdaTranslation.Application.Languages.Queries.GetLanguageById;
-using AdaTranslation.Application.Languages.Queries.GetLanguages;
+﻿using AdaTranslation.Application.Features.Languages.Queries.GetLanguageById;
+using AdaTranslation.Application.Features.Languages.Queries.GetLanguages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

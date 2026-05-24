@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.UserLanguages.Dtos;
+﻿using AdaTranslation.Application.Features.UserLanguages.Dtos;
 
 namespace AdaTranslation.Application.Common.Interfaces
 {

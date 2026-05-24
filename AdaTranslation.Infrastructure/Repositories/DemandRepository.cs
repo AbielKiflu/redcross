@@ -1,9 +1,10 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
-using AdaTranslation.Application.Demands.Dtos;
+using AdaTranslation.Application.Features.Demands.Dtos;
 using AdaTranslation.Domain;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Domain.Enums;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories

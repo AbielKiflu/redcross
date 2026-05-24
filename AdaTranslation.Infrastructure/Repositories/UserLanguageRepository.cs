@@ -1,7 +1,8 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
-using AdaTranslation.Application.UserLanguages.Dtos;
+using AdaTranslation.Application.Features.UserLanguages.Dtos;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdaTranslation.Infrastructure.Repositories

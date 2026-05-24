@@ -1,4 +1,4 @@
-﻿using AdaTranslation.Application.Languages.Dtos;
+﻿using AdaTranslation.Application.Features.Languages.Dtos;
 using AdaTranslation.Domain.Entities;
 
 namespace AdaTranslation.Application.Common.Mappers

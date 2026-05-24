@@ -1,8 +1,8 @@
-﻿using AdaTranslation.Application.Demands.Commands.CreateDemand;
-using AdaTranslation.Application.Demands.Commands.UpdateDemand;
-using AdaTranslation.Application.Demands.Dtos;
-using AdaTranslation.Application.Demands.Queries.GetDemandById;
-using AdaTranslation.Application.Demands.Queries.GetDemands;
+﻿using AdaTranslation.Application.Features.Demands.Queries.GetDemandById;
+using AdaTranslation.Application.Features.Demands.Queries.GetDemands;
+using AdaTranslation.Application.Features.Demands.Commands.CreateDemand;
+using AdaTranslation.Application.Features.Demands.Commands.UpdateDemand;
+using AdaTranslation.Application.Features.Demands.Dtos;
 using AdaTranslation.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
