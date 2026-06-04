@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.Json.Serialization;
-
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Settings;
 using AdaTranslation.Application.DependencyInjection;
@@ -54,21 +53,14 @@ builder.Services.AddControllers()
 
 //Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 
 // app.UseHttpsRedirection();
 app.UseCors("FrontendPolicy");
-//app.UseAuthentication();
-//app.UseAuthorization(); 
+app.UseAuthentication();
+app.UseAuthorization(); 
 app.MapControllers();
 
 app.Run();
