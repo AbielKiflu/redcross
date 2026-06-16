@@ -14,7 +14,7 @@ namespace AdaTranslation.Application.Features.Users.Dtos
         int CenterId,
         UserRole UserRole,
         LanguageDto[] Languages)
-    :UserCreateDto(
+    : UserCreateDto(
         LastName,
         FirstName,
         Telephone,

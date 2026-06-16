@@ -14,7 +14,7 @@ namespace AdaTranslation.Application.Features.UserLanguages.Commands.DeleteUserL
         }
         public async Task Handle(DeleteUserLanguageCommand request, CancellationToken cancellationToken)
         {
-            await _userLanguageRepository.DeleteAsync(request.Id,cancellationToken);
+            await _userLanguageRepository.DeleteAsync(request.Id, cancellationToken);
         }
     }
 }

@@ -3,7 +3,9 @@ using AdaTranslation.Application.Features.Services.Commands.DeleteService;
 using AdaTranslation.Application.Features.Services.Commands.UpdateService;
 using AdaTranslation.Application.Features.Services.Queries.GetServiceById;
 using AdaTranslation.Application.Features.Services.Queries.GetServices;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +14,7 @@ namespace AdaTranslation.API.Controllers
     [ApiController]
     [Route("api/service")]
     [Authorize]
-    public class ServicesController: ControllerBase
+    public class ServicesController : ControllerBase
     {
         private readonly IMediator _mediator;
         public ServicesController(IMediator mediator) => _mediator = mediator;
@@ -26,7 +28,7 @@ namespace AdaTranslation.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(int id,CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             var query = await _mediator.Send(new GetServiceByIdQuery(id), cancellationToken);
             return Ok(query);

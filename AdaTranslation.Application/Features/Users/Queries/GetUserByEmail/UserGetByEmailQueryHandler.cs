@@ -14,7 +14,7 @@ namespace AdaTranslation.Application.Features.Users.Queries.GetUserByEmail
         }
         public async Task<UserDto?> Handle(UserGetByEmailQuery request, CancellationToken cancellationToken)
         {
-            var user =  await _userRepository.GetUserByEmailAsync(request.email,cancellationToken);
+            var user = await _userRepository.GetUserByEmailAsync(request.email, cancellationToken);
             return user;
         }
     }

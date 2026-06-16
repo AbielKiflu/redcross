@@ -4,7 +4,7 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.UserLanguages.Commands.SyncUserLanguages
 {
-    public class SyncUserLanguagesCommandHandler: IRequestHandler<SyncUserLanguagesCommand,Unit>
+    public class SyncUserLanguagesCommandHandler : IRequestHandler<SyncUserLanguagesCommand, Unit>
     {
         private readonly IUserLanguageRepository _userLanguageRepository;
 

@@ -13,7 +13,7 @@ namespace AdaTranslation.Application.Features.Services.Commands.UpdateService
 
         public async Task Handle(UpdateServiceCommand request, CancellationToken cancellationToken)
         {
-            var service = new ServiceDto(Id:request.Id , Description:request.Description);
+            var service = new ServiceDto(Id: request.Id, Description: request.Description);
 
             await _serviceRepository.UpdateAsync(service, cancellationToken);
         }

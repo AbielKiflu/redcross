@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Users.Queries.GetUserByEmail
 {
-    public record UserGetByEmailQuery(string email) :IRequest<UserDto>;
+    public record UserGetByEmailQuery(string email) : IRequest<UserDto>;
 }

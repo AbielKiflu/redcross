@@ -5,5 +5,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Centers.Queries.GetCenters
 {
-    public record GetCenterQuery(Page page): IRequest<PagedResult<CenterDto>>;
+    public record GetCenterQuery(Page page) : IRequest<PagedResult<CenterDto>>;
 }

@@ -1,5 +1,7 @@
 ﻿using AdaTranslation.Application.Common.Validators;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdaTranslation.Application.DependencyInjection

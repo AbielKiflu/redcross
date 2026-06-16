@@ -1,6 +1,8 @@
 ﻿using AdaTranslation.Application.Features.Languages.Queries.GetLanguageById;
 using AdaTranslation.Application.Features.Languages.Queries.GetLanguages;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,7 @@ namespace AdaTranslation.API.Controllers
     [ApiController]
     [Route("api/language")]
     [Authorize]
-    public class LanguagesController: ControllerBase
+    public class LanguagesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -17,7 +19,7 @@ namespace AdaTranslation.API.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default) 
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default)
         {
             var languages = await _mediator.Send(new LanguageQuery(), cancellationToken);
             return languages == null ? NoContent() : Ok(languages);
@@ -26,7 +28,7 @@ namespace AdaTranslation.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            var language = await _mediator.Send(new LanguageByIdQuery(Id:id), cancellationToken);
+            var language = await _mediator.Send(new LanguageByIdQuery(Id: id), cancellationToken);
             return language == null ? NoContent() : Ok(language);
         }
     }

@@ -1,7 +1,8 @@
 ﻿using AdaTranslation.Application.Common;
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Settings;
-using AdaTranslation.Infrastructure.Data; 
+using AdaTranslation.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -13,7 +14,7 @@ namespace AdaTranslation.Infrastructure.Services
         private readonly JwtOptions _options;
         private readonly ApplicationDbContext _context;
 
-        public AuthenticationService(ITokenService tokenService, 
+        public AuthenticationService(ITokenService tokenService,
             IOptions<JwtOptions> options,
             ApplicationDbContext context)
         {
@@ -38,10 +39,10 @@ namespace AdaTranslation.Infrastructure.Services
             }
 
             var token = _tokenService.CreateToken(user);
-            var expires = DateTime.UtcNow.AddMinutes(_options.ExpireMinutes); 
-          
+            var expires = DateTime.UtcNow.AddMinutes(_options.ExpireMinutes);
+
             return new AuthResponse(Email: user.Email, Token: token, Expiry: expires);
-            
+
         }
     }
 }

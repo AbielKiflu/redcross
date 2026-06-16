@@ -5,7 +5,7 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Centers.Queries.GetCenterById
 {
-    public class GetCenterByIdHandler : IRequestHandler <GetCenterByIdQuery, CenterDto>
+    public class GetCenterByIdHandler : IRequestHandler<GetCenterByIdQuery, CenterDto>
     {
         private readonly ICenterRepository _centerRepository;
 

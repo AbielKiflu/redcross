@@ -16,5 +16,5 @@ namespace AdaTranslation.Application.Features.Users.Dtos
         string UserRole,
         List<LanguageDto> Languages
 );
- 
+
 }

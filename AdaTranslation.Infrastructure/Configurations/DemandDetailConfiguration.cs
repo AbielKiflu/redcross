@@ -1,4 +1,5 @@
 ﻿using AdaTranslation.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,7 +15,7 @@ namespace AdaTranslation.Infrastructure.Configurations
 
             builder.Property(dd => dd.ResponsiblePersonEmail)
                    .IsRequired()
-                   .HasMaxLength(50); 
+                   .HasMaxLength(50);
 
             builder.Property(dd => dd.Message)
                    .IsRequired()

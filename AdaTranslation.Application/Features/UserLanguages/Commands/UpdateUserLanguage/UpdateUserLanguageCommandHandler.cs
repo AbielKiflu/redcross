@@ -8,7 +8,7 @@ namespace AdaTranslation.Application.Features.UserLanguages.Commands.UpdateUserL
     {
         private readonly IUserLanguageRepository _userLanguageRepository;
 
-        public UpdateUserLanguageCommandHandler(IUserLanguageRepository userLanguageRepository) => _userLanguageRepository=userLanguageRepository;
+        public UpdateUserLanguageCommandHandler(IUserLanguageRepository userLanguageRepository) => _userLanguageRepository = userLanguageRepository;
 
         public async Task Handle(UpdateUserLanguageCommand request, CancellationToken cancellationToken)
         {

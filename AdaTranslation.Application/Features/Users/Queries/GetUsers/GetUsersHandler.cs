@@ -1,6 +1,7 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Features.Users.Dtos;
 using AdaTranslation.Domain;
+
 using MediatR;
 
 namespace AdaTranslation.Application.Features.Users.Queries.GetUsers

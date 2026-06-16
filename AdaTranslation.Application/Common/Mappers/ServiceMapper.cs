@@ -10,9 +10,9 @@ namespace AdaTranslation.Application.Common.Mappers
             return new Service(serviceDto.Id, serviceDto.Description);
         }
 
-        public static ServiceDto ToServiceDto(this Service service) 
+        public static ServiceDto ToServiceDto(this Service service)
         {
             return new ServiceDto(Id: service.Id, Description: service.Description);
-        } 
+        }
     }
 }

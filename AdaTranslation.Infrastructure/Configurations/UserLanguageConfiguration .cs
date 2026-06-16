@@ -1,4 +1,5 @@
 ﻿using AdaTranslation.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -7,9 +8,9 @@ namespace AdaTranslation.Infrastructure.Configurations
     public class UserLanguageConfiguration : IEntityTypeConfiguration<UserLanguage>
     {
         public void Configure(EntityTypeBuilder<UserLanguage> builder)
-        { 
+        {
             builder.ToTable(nameof(UserLanguage));
-             
+
             builder.HasKey(ul => ul.Id);
 
             builder.HasIndex(ul => new { ul.UserId, ul.LanguageId })

@@ -13,10 +13,10 @@ namespace AdaTranslation.Application.Features.Services.Queries.GetServiceById
         {
             _serviceRepository = serviceRepository;
         }
-         
+
         public async Task<ServiceDto> Handle(GetServiceByIdQuery request, CancellationToken cancellationToken)
         {
-            var service = await _serviceRepository.GetByIdAsync(request.Id,cancellationToken);
+            var service = await _serviceRepository.GetByIdAsync(request.Id, cancellationToken);
 
             return new ServiceDto(service.Id, service.Description);
         }

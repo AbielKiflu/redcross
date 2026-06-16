@@ -16,7 +16,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var services = await _context.Services.ToListAsync(cancellationToken);
 
             if (services.Count != 0)
-                return services;  
+                return services;
             return [];
         }
         public async Task<Service> GetByIdAsync(int id, CancellationToken cancellationToken = default)
@@ -35,7 +35,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         }
         public async Task UpdateAsync(ServiceDto service, CancellationToken cancellationToken = default)
         {
-            var updateService = new Service(service.Id,service.Description);
+            var updateService = new Service(service.Id, service.Description);
             _context.Services.Update(updateService);
             await _context.SaveChangesAsync(cancellationToken);
         }
@@ -47,7 +47,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             {
                 _context.Services.Remove(service);
                 await _context.SaveChangesAsync(cancellationToken);
-            } 
+            }
 
         }
     }

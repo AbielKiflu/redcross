@@ -23,7 +23,7 @@
                 throw new ArgumentException("Description cannot be null or empty.", nameof(description));
 
             Description = description;
-            Id= id;
+            Id = id;
         }
 
         public void AddDemandDetail(DemandDetail demandDetail)

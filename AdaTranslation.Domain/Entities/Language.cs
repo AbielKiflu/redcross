@@ -4,7 +4,7 @@
     {
         private string _description = string.Empty;
         public int Id { get; private set; }
-        public string Description 
+        public string Description
         {
             get => _description;
             private set => _description = value;

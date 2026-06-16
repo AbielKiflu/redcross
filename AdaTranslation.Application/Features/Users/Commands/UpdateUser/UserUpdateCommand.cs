@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Users.Commands.UpdateUser
 {
-    public record UserUpdateCommand(UserUpdateDto  user):IRequest;
+    public record UserUpdateCommand(UserUpdateDto user) : IRequest;
 }

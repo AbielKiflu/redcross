@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Users.Commands.CreateUser
 {
-    public record UserCreateCommand(UserCreateDto  user):IRequest<long>;
+    public record UserCreateCommand(UserCreateDto user) : IRequest<long>;
 }

@@ -64,7 +64,7 @@ namespace AdaTranslation.Infrastructure.Repositories
             var result = await _context.Demands
                    .AsNoTracking()
                    .Include(d => d.Center)
-                   .Include(d=> d.CreatedBy)
+                   .Include(d => d.CreatedBy)
                    .FirstAsync(d => d.Id == id, cancellationToken);
 
             var demandSummary = new DemandSummaryDto()
@@ -85,7 +85,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         public async Task<int> CreateAsync(DemandCreateDto demand, CancellationToken cancellationToken = default)
         {
             var newDemand = new Demand(
-            
+
                 demand.Subject,
                 demand.Description,
                 1,
@@ -102,7 +102,7 @@ namespace AdaTranslation.Infrastructure.Repositories
                  .AsNoTracking()
                  .FirstAsync(d => d.Id == demand.Id, cancellationToken);
 
-            result.Update(demand.Subject, demand.Description,demand.DemandType);
+            result.Update(demand.Subject, demand.Description, demand.DemandType);
             _context.Demands.Update(result);
             return await _context.SaveChangesAsync(cancellationToken);
         }

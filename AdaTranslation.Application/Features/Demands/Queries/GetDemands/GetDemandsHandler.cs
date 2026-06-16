@@ -6,7 +6,7 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Demands.Queries.GetDemands
 {
-    public class GetDemandsHandler : IRequestHandler <GetDemandsQuery, PagedResult<DemandSummaryDto>>
+    public class GetDemandsHandler : IRequestHandler<GetDemandsQuery, PagedResult<DemandSummaryDto>>
     {
         private readonly IDemandRepository _demandRepository;
 

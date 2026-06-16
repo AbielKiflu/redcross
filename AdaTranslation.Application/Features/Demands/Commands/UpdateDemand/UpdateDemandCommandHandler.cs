@@ -8,7 +8,7 @@ namespace AdaTranslation.Application.Features.Demands.Commands.UpdateDemand
     {
         private readonly IDemandRepository _demandRepository;
 
-        public UpdateDemandCommandHandler(IDemandRepository demandRepository) =>  _demandRepository= demandRepository;
+        public UpdateDemandCommandHandler(IDemandRepository demandRepository) => _demandRepository = demandRepository;
 
         public async Task<int> Handle(UpdateDemandCommand request, CancellationToken cancellationToken)
         {

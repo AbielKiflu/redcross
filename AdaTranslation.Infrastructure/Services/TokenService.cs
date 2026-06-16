@@ -1,15 +1,17 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Settings;
 using AdaTranslation.Domain.Entities;
+
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AdaTranslation.Infrastructure.Services
 {
-    public class TokenService :ITokenService
+    public class TokenService : ITokenService
     {
         private readonly JwtOptions _options;
 

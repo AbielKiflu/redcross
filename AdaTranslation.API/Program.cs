@@ -1,11 +1,13 @@
 using System.Text;
 using System.Text.Json.Serialization;
+
 using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Settings;
 using AdaTranslation.Application.DependencyInjection;
 using AdaTranslation.Application.Features.Centers.Queries.GetCenters;
 using AdaTranslation.Infrastructure.DependencyInjection;
 using AdaTranslation.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,7 +21,7 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptio
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetCenterQuery).Assembly));
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddApplication(); 
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -60,7 +62,7 @@ var app = builder.Build();
 // app.UseHttpsRedirection();
 app.UseCors("FrontendPolicy");
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

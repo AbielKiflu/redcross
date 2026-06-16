@@ -1,14 +1,11 @@
 ﻿using AdaTranslation.Application.Common.Interfaces;
 using AdaTranslation.Application.Common.Mappers;
-using AdaTranslation.Application.Features.Centers.Dtos;
 using AdaTranslation.Application.Features.Users.Dtos;
 using AdaTranslation.Domain;
 using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Data;
 
 using Microsoft.EntityFrameworkCore;
-
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace AdaTranslation.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
@@ -24,7 +21,7 @@ namespace AdaTranslation.Infrastructure.Repositories
         {
 
             var newUser = new User(user.FirstName, user.LastName, user.Email, user.Telephone, user.CenterId, user.UserRole);
-             
+
             await _context.Users.AddAsync(newUser, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return newUser.Id;
@@ -40,16 +37,16 @@ namespace AdaTranslation.Infrastructure.Repositories
                 .Include(u => u.Center)
                 .Include(u => u.UserLanguages)
                 .ThenInclude(ul => ul.Language)
-                .SingleOrDefaultAsync(u => u.Email == email); 
+                .SingleOrDefaultAsync(u => u.Email == email);
 
-           if (user == null)
-                throw new UnauthorizedAccessException("Invalid credentials"); 
+            if (user == null)
+                throw new UnauthorizedAccessException("Invalid credentials");
             return UserMapper.ToUserDto(user);
         }
 
         public async Task<PagedResult<UserDto>> GetUsersAsync(Page page, CancellationToken cancellationToken)
         {
-            var query =_context.Users
+            var query = _context.Users
                .AsNoTracking()
                .Include(u => u.Center)
                .Include(u => u.UserLanguages)

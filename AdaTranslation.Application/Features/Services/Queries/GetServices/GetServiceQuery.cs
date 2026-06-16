@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Services.Queries.GetServices
 {
-    public record  GetServiceQuery(): IRequest<IEnumerable<ServiceDto>>;
+    public record GetServiceQuery() : IRequest<IEnumerable<ServiceDto>>;
 }

@@ -14,7 +14,7 @@ namespace AdaTranslation.Application.Features.Users.Commands.UpdateUser
         }
         public async Task Handle(UserUpdateCommand request, CancellationToken cancellationToken)
         {
-             await _userRepository.UpdateAsync(request.user, cancellationToken);
+            await _userRepository.UpdateAsync(request.user, cancellationToken);
         }
     }
 }

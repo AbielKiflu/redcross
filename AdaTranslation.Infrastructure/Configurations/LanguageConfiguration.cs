@@ -1,4 +1,5 @@
 ﻿using AdaTranslation.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

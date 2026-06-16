@@ -1,11 +1,13 @@
-﻿using AdaTranslation.Domain.Entities;
+﻿using System.Reflection;
+
+using AdaTranslation.Domain.Entities;
 using AdaTranslation.Infrastructure.Configurations;
+
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace AdaTranslation.Infrastructure.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -16,7 +18,7 @@ namespace AdaTranslation.Infrastructure.Data
         public DbSet<Demand> Demands => Set<Demand>();
         public DbSet<DemandDetail> DemandDetails => Set<DemandDetail>();
         public DbSet<UserLanguage> UserLanguages => Set<UserLanguage>();
-         
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

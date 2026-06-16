@@ -14,7 +14,7 @@ namespace AdaTranslation.Application.Features.Users.Commands.CreateUser
         }
         public async Task<long> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
-             var createdId = await _userRepository.CreateAsync(request.user, cancellationToken);
+            var createdId = await _userRepository.CreateAsync(request.user, cancellationToken);
             return createdId;
         }
     }

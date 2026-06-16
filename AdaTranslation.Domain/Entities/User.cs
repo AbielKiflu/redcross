@@ -22,7 +22,7 @@ namespace AdaTranslation.Domain.Entities
         private User() { }
 
         public User(string firstName, string lastName, string email, string telephone, int centerId, UserRole role)
-        { 
+        {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -31,7 +31,7 @@ namespace AdaTranslation.Domain.Entities
             UserRole = role;
         }
 
- 
+
         /// <summary>
         /// Update user
         /// </summary>

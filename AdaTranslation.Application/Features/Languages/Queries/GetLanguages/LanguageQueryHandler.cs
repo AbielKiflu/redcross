@@ -15,7 +15,7 @@ namespace AdaTranslation.Application.Features.Languages.Queries.GetLanguages
         public async Task<IEnumerable<LanguageDto>> Handle(LanguageQuery request, CancellationToken cancellationToken)
         {
             var languages = await _languageRepository.GetAsync(cancellationToken);
-            return languages.Select(l => new LanguageDto(Id: l.Id,Description:l.Description));
+            return languages.Select(l => new LanguageDto(Id: l.Id, Description: l.Description));
         }
     }
 }

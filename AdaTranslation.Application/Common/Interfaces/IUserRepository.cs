@@ -7,7 +7,7 @@ namespace AdaTranslation.Application.Common.Interfaces
     ///  A repo to make a crud on the table user
     /// </summary>
     public interface IUserRepository
-    {  
+    {
         /// <summary>
         /// Get a user by Email
         /// </summary>
