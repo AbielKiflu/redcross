@@ -1,17 +1,20 @@
-﻿using AdaTranslation.Application.Features.Demands.Queries.GetDemandById;
-using AdaTranslation.Application.Features.Demands.Queries.GetDemands;
-using AdaTranslation.Application.Features.Demands.Commands.CreateDemand;
+﻿using AdaTranslation.Application.Features.Demands.Commands.CreateDemand;
 using AdaTranslation.Application.Features.Demands.Commands.UpdateDemand;
 using AdaTranslation.Application.Features.Demands.Dtos;
+using AdaTranslation.Application.Features.Demands.Queries.GetDemandById;
+using AdaTranslation.Application.Features.Demands.Queries.GetDemands;
 using AdaTranslation.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using Page = AdaTranslation.Domain.Page;
 
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/demands")]
+    [Route("api/demand")]
+    [Authorize]
     public class DemandsController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,6 +31,7 @@ namespace AdaTranslation.API.Controllers
         }
 
         [HttpGet]
+        [Route("list")]
         public async Task<PagedResult<DemandSummaryDto>> GetAsync([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, CancellationToken cancellationToken= default)
         {
             var page = new Page(pageNumber, pageSize);

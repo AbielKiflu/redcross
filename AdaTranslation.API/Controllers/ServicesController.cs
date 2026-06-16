@@ -4,18 +4,21 @@ using AdaTranslation.Application.Features.Services.Commands.UpdateService;
 using AdaTranslation.Application.Features.Services.Queries.GetServiceById;
 using AdaTranslation.Application.Features.Services.Queries.GetServices;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/services")]
+    [Route("api/service")]
+    [Authorize]
     public class ServicesController: ControllerBase
     {
         private readonly IMediator _mediator;
         public ServicesController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
+        [Route("list")]
         public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default)
         {
             var query = await _mediator.Send(new GetServiceQuery(), cancellationToken);

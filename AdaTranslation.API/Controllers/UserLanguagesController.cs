@@ -2,12 +2,14 @@
 using AdaTranslation.Application.Features.UserLanguages.Commands.DeleteUserLanguage;
 using AdaTranslation.Application.Features.UserLanguages.Commands.UpdateUserLanguage;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdaTranslation.API.Controllers
 {
     [ApiController]
-    [Route("api/languages")]
+    [Route("api/language")]
+    [Authorize]
     public class UserLanguagesController : ControllerBase
     {
         private readonly IMediator _mediator;
