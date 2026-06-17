@@ -2,7 +2,7 @@
 using AdaTranslation.Application.Features.Demands.Commands.UpdateDemand;
 using AdaTranslation.Application.Features.Demands.Dtos;
 using AdaTranslation.Application.Features.Demands.Queries.GetDemandById;
-using AdaTranslation.Application.Features.Demands.Queries.GetDemands;
+using AdaTranslation.Application.Features.Demands.Queries.GetDemandsQuery;
 using AdaTranslation.Domain;
 
 using MediatR;

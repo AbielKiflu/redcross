@@ -10,7 +10,7 @@ namespace AdaTranslation.Domain.Entities
         public DateTime StartDate { get; private set; }
         public DateTime FinishDate { get; private set; }
 
-        public DemandPriority Priority { get; private set; } = DemandPriority.Low;
+        public DemandPriority Priority { get; private set; } = DemandPriority.Medium;
         public DemandStatus Status { get; private set; } = DemandStatus.Draft;
         public DemandType DemandType { get; private set; } = DemandType.Site;
 
@@ -72,8 +72,23 @@ namespace AdaTranslation.Domain.Entities
 
         public void ScheduleDates(DateTime start, DateTime finish)
         {
-            if (finish < start)
-                throw new ArgumentException("Finish date cannot be earlier than start date.");
+            if (finish <= start)
+                throw new ArgumentException("Finish date and time must be later than the start date and time.");
+
+            if (start.Date != finish.Date)
+                throw new ArgumentException("The demand must start and finish on the same calendar day.");
+
+            if (start.DayOfWeek == DayOfWeek.Saturday || start.DayOfWeek == DayOfWeek.Sunday)
+                throw new ArgumentException("Demands can only be scheduled on business days (Monday through Friday).");
+
+            var businessStart = new TimeSpan(7, 0, 0);  // 07:00 AM
+            var businessEnd = new TimeSpan(20, 0, 0);  // 20:00 PM
+
+            if (start.TimeOfDay < businessStart || start.TimeOfDay > businessEnd)
+                throw new ArgumentException($"Start time ({start:HH:mm}) falls outside operating hours (08:00 - 17:00).");
+
+            if (finish.TimeOfDay < businessStart || finish.TimeOfDay > businessEnd)
+                throw new ArgumentException($"Finish time ({finish:HH:mm}) falls outside operating hours (08:00 - 17:00).");
 
             StartDate = start;
             FinishDate = finish;
@@ -90,7 +105,7 @@ namespace AdaTranslation.Domain.Entities
         public void AddDetail(int serviceId, string email, string message, int duration)
         {
             if (Status == DemandStatus.Completed || Status == DemandStatus.Cancelled)
-                throw new InvalidOperationException("Cannot add details to a finalized demand.");
+                throw new InvalidOperationException("Cannot add details to a completed demand.");
 
             var detail = new DemandDetail(serviceId, email, message, duration, this.CreatedById);
             _demandDetails.Add(detail);
@@ -108,5 +123,45 @@ namespace AdaTranslation.Domain.Entities
 
             Status = DemandStatus.Submitted;
         }
+
+        public void ChangeStatusByRole(DemandStatus targetStatus, UserRole userRole, long currentUserId)
+        {
+            if (userRole == UserRole.Admin) { Status = targetStatus; return; }
+
+            bool isTransitionAllowed = (Status, targetStatus, userRole) switch
+            {
+                // Client Rules
+                (DemandStatus.Draft, DemandStatus.Submitted, UserRole.Client) when CreatedById == currentUserId => _demandDetails.Any(),
+                (DemandStatus.Draft, DemandStatus.Cancelled, UserRole.Client) when CreatedById == currentUserId => true,
+                (DemandStatus.Submitted, DemandStatus.Cancelled, UserRole.Client) when CreatedById == currentUserId => true,
+
+                // Coordinator Rules
+                (DemandStatus.Submitted, DemandStatus.Assigned, UserRole.Coordinator) when DemandedUserId.HasValue => true,
+                (DemandStatus.Submitted, DemandStatus.Cancelled, UserRole.Coordinator) => true,
+                (DemandStatus.Assigned, DemandStatus.Cancelled, UserRole.Coordinator) => true,
+
+                // Mediator Rules
+                (DemandStatus.Assigned, DemandStatus.InProgress, UserRole.Mediator) when DemandedUserId == currentUserId => true,
+                (DemandStatus.InProgress, DemandStatus.Completed, UserRole.Mediator) when DemandedUserId == currentUserId => true,
+
+                _ => false
+            };
+
+            if (!isTransitionAllowed)
+                throw new InvalidOperationException($"Workflow Violation: Role '{userRole}' cannot change status from '{Status}' to '{targetStatus}'.");
+
+            Status = targetStatus;
+        }
+
+        public void CoordinateAssignment(long targetUserId, UserRole accessorRole)
+        {
+            if (accessorRole != UserRole.Coordinator && accessorRole != UserRole.Admin)
+                throw new UnauthorizedAccessException("Only Coordinators or Admins can assign resources.");
+
+            AssignToUser(targetUserId);
+            Status = DemandStatus.Assigned;
+        }
+
+
     }
 }

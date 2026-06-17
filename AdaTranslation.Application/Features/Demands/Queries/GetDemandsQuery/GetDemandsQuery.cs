@@ -3,7 +3,7 @@ using AdaTranslation.Domain;
 
 using MediatR;
 
-namespace AdaTranslation.Application.Features.Demands.Queries.GetDemands
+namespace AdaTranslation.Application.Features.Demands.Queries.GetDemandsQuery
 {
     public class GetDemandsQuery : IRequest<PagedResult<DemandSummaryDto>>
     {
