@@ -103,14 +103,18 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         public async Task<int> CreateAsync(DemandCreateDto demand, CancellationToken cancellationToken = default)
         {
+            if (_currentUser.CenterId == null && _currentUser.UserId == null)
+                throw new ArgumentNullException("User id or center id cannot be null");
+             
             var newDemand = new Demand(
-
                 demand.Subject,
                 demand.Description,
-                1,
-                1,
-                DemandType.Site
-            );
+                _currentUser.CenterId.Value,
+                _currentUser.UserId.Value,
+                demand.DemandType,
+                demand.Priority 
+                );
+
             await _context.Demands.AddAsync(newDemand, cancellationToken);
             return await _context.SaveChangesAsync(cancellationToken);
         }

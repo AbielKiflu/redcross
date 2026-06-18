@@ -28,7 +28,7 @@ namespace AdaTranslation.Domain.Entities
 
         private Demand() { }
 
-        public Demand(string subject, string description, int centerId, long createdById, DemandType type = DemandType.Site)
+        public Demand(string subject, string description,int centerId, long userId, DemandType type = DemandType.Site, DemandPriority priority = DemandPriority.Low)
         {
             if (string.IsNullOrWhiteSpace(subject))
                 throw new ArgumentException("Subject is required.", nameof(subject));
@@ -36,15 +36,11 @@ namespace AdaTranslation.Domain.Entities
             if (string.IsNullOrWhiteSpace(description))
                 throw new ArgumentException("Description is required.", nameof(description));
 
-            if (centerId <= 0)
-                throw new ArgumentException("A valid CenterId is required.", nameof(centerId));
 
             Subject = subject;
             Description = description;
-            CenterId = centerId;
-            CreatedById = createdById;
             DemandType = type;
-
+            Priority = priority;
             Status = DemandStatus.Draft;
             CreatedDate = DateTime.UtcNow;
         }
