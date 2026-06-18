@@ -44,6 +44,7 @@ namespace AdaTranslation.API.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize(Roles = "Client")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateDemandCommand command)
         {
             await _mediator.Send(command);

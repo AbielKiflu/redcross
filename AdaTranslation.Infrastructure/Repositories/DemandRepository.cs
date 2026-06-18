@@ -13,48 +13,55 @@ namespace AdaTranslation.Infrastructure.Repositories
     public class DemandRepository : IDemandRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly ICurrentUserService _currentUser;
         public DemandRepository(ApplicationDbContext context, ICurrentUserService currentUser)
         {
             _context = context;
-            _currentUser = currentUser;
         }
 
-        public async Task<PagedResult<DemandSummaryDto>> Get(Page page, CancellationToken cancellationToken = default)
+        public async Task<PagedResult<DemandSummaryDto>> GetAsync(
+            Page page,
+            UserRole role,
+            long? userId,
+            long? centerId,
+            bool fetchAllData,
+            CancellationToken cancellationToken = default)
         {
             if (page.PageNumber < 1 || page.PageSize < 1)
                 throw new ArgumentException("Invalid paging parameters.");
 
             var query = _context.Demands.AsNoTracking();
 
-            query = _currentUser.Role switch
+            if (!fetchAllData)
             {
-                UserRole.Admin => query,
-                UserRole.Coordinator => query,
-                UserRole.Client => query.Where(d => d.CreatedById == _currentUser.UserId || d.CenterId == _currentUser.CenterId),
-                UserRole.Mediator => query.Where(d => d.DemandedUserId == _currentUser.UserId),
-                _ => query.Where(d => false) // Deny access by default if role is unhandled
-            };
+                if (role == UserRole.Client)
+                {
+                    query = query.Where(d => d.CreatedById == userId || d.CenterId == centerId);
+                }
+                else if (role == UserRole.Mediator)
+                {
+                    query = query.Where(d => d.DemandedUserId == userId);
+                }
+            }
 
             var totalCount = await query.CountAsync(cancellationToken);
 
             var items = await query
-        .OrderBy(d => d.Id) // Sorting is mandatory for predictable Skip/Take behavior
-        .Skip((page.PageNumber - 1) * page.PageSize)
-        .Take(page.PageSize)
-        .Select(d => new DemandSummaryDto
-        {
-            Id = d.Id,
-            Subject = d.Subject,
-            Status = d.Status,
-            Priority = d.Priority,
-            DemandType = d.DemandType,
-            CenterName = d.Center.Description,     // EF handles the JOIN automatically
-            CreatedByUserName = d.CreatedBy.FirstName, // EF handles the JOIN automatically
-            CreatedDate = d.CreatedDate,
-            Description = d.Description
-        })
-        .ToListAsync(cancellationToken);
+                .OrderBy(d => d.Id)
+                .Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize)
+                .Select(d => new DemandSummaryDto
+                {
+                    Id = d.Id,
+                    Subject = d.Subject,
+                    Status = d.Status,
+                    Priority = d.Priority,
+                    DemandType = d.DemandType,
+                    CenterName = d.Center != null ? d.Center.Description : "No Center",
+                    CreatedByUserName = d.CreatedBy != null ? d.CreatedBy.FirstName : "System",
+                    CreatedDate = d.CreatedDate,
+                    Description = d.Description
+                })
+                .ToListAsync(cancellationToken);
 
             return new PagedResult<DemandSummaryDto>
             {
@@ -66,21 +73,29 @@ namespace AdaTranslation.Infrastructure.Repositories
 
         }
 
-        public async Task<DemandSummaryDto> GetById(long id, CancellationToken cancellationToken = default)
+        public async Task<DemandSummaryDto?> GetByIdAsync(
+            long id,
+            UserRole role,
+            long? userId,
+            long? centerId,
+            bool fetchAllData,
+            CancellationToken cancellationToken = default)
         {
-            var query = _context.Demands.AsNoTracking(); 
-           
-            query = _currentUser.Role switch
+            var query = _context.Demands.AsNoTracking().Where(d => d.Id == id);
+
+            if (!fetchAllData)
             {
-                UserRole.Admin => query,
-                UserRole.Coordinator => query,
-                UserRole.Client => query.Where(d => d.CreatedById == _currentUser.UserId || d.CenterId == _currentUser.CenterId),
-                UserRole.Mediator => query.Where(d => d.DemandedUserId == _currentUser.UserId),
-                _ => query.Where(d => false)
-            };
-             
-            var demandSummary = await query
-                .Where(d => d.Id == id)
+                if (role == UserRole.Client)
+                {
+                    query = query.Where(d => d.CreatedById == userId || d.CenterId == centerId);
+                }
+                else if (role == UserRole.Mediator)
+                {
+                    query = query.Where(d => d.DemandedUserId == userId);
+                }
+            }
+
+            return await query
                 .Select(d => new DemandSummaryDto
                 {
                     Id = d.Id,
@@ -90,36 +105,19 @@ namespace AdaTranslation.Infrastructure.Repositories
                     Priority = d.Priority,
                     DemandType = d.DemandType,
                     CreatedDate = d.CreatedDate,
-                    CenterName = d.Center.Description,     // EF automatically JOINs 'Center'
-                    CreatedByUserName = d.CreatedBy.FirstName // EF automatically JOINs 'CreatedBy'
+                    CenterName = d.Center != null ? d.Center.Description : "No Center Assigned",
+                    CreatedByUserName = d.CreatedBy != null ? d.CreatedBy.FirstName : "System"
                 })
-                .FirstOrDefaultAsync(cancellationToken); 
-            
-            if (demandSummary == null)
-                throw new KeyNotFoundException($"Demand with ID {id} was not found or you do not have permission to view it.");
-
-            return demandSummary;
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<int> CreateAsync(DemandCreateDto demand, CancellationToken cancellationToken = default)
+        public async Task<int> CreateAsync(Demand demand, CancellationToken cancellationToken = default)
         {
-            if (_currentUser.CenterId == null && _currentUser.UserId == null)
-                throw new ArgumentNullException("User id or center id cannot be null");
-             
-            var newDemand = new Demand(
-                demand.Subject,
-                demand.Description,
-                _currentUser.CenterId.Value,
-                _currentUser.UserId.Value,
-                demand.DemandType,
-                demand.Priority 
-                );
-
-            await _context.Demands.AddAsync(newDemand, cancellationToken);
+            await _context.Demands.AddAsync(demand, cancellationToken);
             return await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<int> UpdateAsync(DemandUpdate demand, CancellationToken cancellationToken = default)
+        public async Task<int> UpdateAsync(Demand demand, CancellationToken cancellationToken = default)
         {
             var result = await _context.Demands
                  .AsNoTracking()
@@ -128,6 +126,13 @@ namespace AdaTranslation.Infrastructure.Repositories
             result.Update(demand.Subject, demand.Description, demand.DemandType);
             _context.Demands.Update(result);
             return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<Demand?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Demands
+                .AsNoTracking()
+                .FirstOrDefaultAsync(d => d.Id == id, cancellationToken);
         }
     }
 }

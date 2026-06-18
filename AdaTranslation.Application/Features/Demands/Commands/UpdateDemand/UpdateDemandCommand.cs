@@ -4,5 +4,5 @@ using MediatR;
 
 namespace AdaTranslation.Application.Features.Demands.Commands.UpdateDemand
 {
-    public record UpdateDemandCommand(DemandUpdate Demand) : IRequest<int>;
+    public record UpdateDemandCommand(DemandUpdateDto Demand) : IRequest<int>;
 }

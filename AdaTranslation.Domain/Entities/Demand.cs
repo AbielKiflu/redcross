@@ -28,7 +28,7 @@ namespace AdaTranslation.Domain.Entities
 
         private Demand() { }
 
-        public Demand(string subject, string description,int centerId, long userId, DemandType type = DemandType.Site, DemandPriority priority = DemandPriority.Low)
+        public Demand(string subject, string description, int centerId, long userId, DemandType type = DemandType.Site, DemandPriority priority = DemandPriority.Low)
         {
             if (string.IsNullOrWhiteSpace(subject))
                 throw new ArgumentException("Subject is required.", nameof(subject));
@@ -39,16 +39,18 @@ namespace AdaTranslation.Domain.Entities
 
             Subject = subject;
             Description = description;
+            CenterId = centerId;
             DemandType = type;
             Priority = priority;
             Status = DemandStatus.Draft;
             CreatedDate = DateTime.UtcNow;
+            CreatedById = userId;
         }
 
         /// <summary>
         /// Updates the core textual and type details of the demand if it hasn't been finalized.
         /// </summary>
-        public void Update(string newSubject, string newDescription, DemandType newType)
+        public Demand Update(string newSubject, string newDescription, DemandType newType)
         {
             if (Status == DemandStatus.Completed || Status == DemandStatus.Cancelled)
             {
@@ -64,9 +66,11 @@ namespace AdaTranslation.Domain.Entities
             Subject = newSubject;
             Description = newDescription;
             DemandType = newType;
+
+            return this;
         }
 
-        public void ScheduleDates(DateTime start, DateTime finish)
+        public Demand ScheduleDates(DateTime start, DateTime finish)
         {
             if (finish <= start)
                 throw new ArgumentException("Finish date and time must be later than the start date and time.");
@@ -88,14 +92,18 @@ namespace AdaTranslation.Domain.Entities
 
             StartDate = start;
             FinishDate = finish;
+
+            return this;
         }
 
-        public void AssignToUser(long userId)
+        public Demand AssignToUser(long userId)
         {
             if (userId <= 0)
                 throw new ArgumentException("Invalid user assignment.", nameof(userId));
 
             DemandedUserId = userId;
+
+            return this;
         }
 
         public void AddDetail(int serviceId, string email, string message, int duration)
@@ -107,55 +115,33 @@ namespace AdaTranslation.Domain.Entities
             _demandDetails.Add(detail);
         }
 
-        public void ChangePriority(DemandPriority newPriority)
+        public Demand ChangePriority(DemandPriority newPriority)
         {
             Priority = newPriority;
+
+            return this;
         }
 
-        public void SubmitForReview()
+        public Demand SubmitForReview()
         {
             if (!_demandDetails.Any())
                 throw new InvalidOperationException("A demand must have at least one Service Detail before it can be submitted.");
 
             Status = DemandStatus.Submitted;
+
+            return this;
         }
 
-        public void ChangeStatusByRole(DemandStatus targetStatus, UserRole userRole, long currentUserId)
-        {
-            if (userRole == UserRole.Admin) { Status = targetStatus; return; }
 
-            bool isTransitionAllowed = (Status, targetStatus, userRole) switch
-            {
-                // Client Rules
-                (DemandStatus.Draft, DemandStatus.Submitted, UserRole.Client) when CreatedById == currentUserId => _demandDetails.Any(),
-                (DemandStatus.Draft, DemandStatus.Cancelled, UserRole.Client) when CreatedById == currentUserId => true,
-                (DemandStatus.Submitted, DemandStatus.Cancelled, UserRole.Client) when CreatedById == currentUserId => true,
-
-                // Coordinator Rules
-                (DemandStatus.Submitted, DemandStatus.Assigned, UserRole.Coordinator) when DemandedUserId.HasValue => true,
-                (DemandStatus.Submitted, DemandStatus.Cancelled, UserRole.Coordinator) => true,
-                (DemandStatus.Assigned, DemandStatus.Cancelled, UserRole.Coordinator) => true,
-
-                // Mediator Rules
-                (DemandStatus.Assigned, DemandStatus.InProgress, UserRole.Mediator) when DemandedUserId == currentUserId => true,
-                (DemandStatus.InProgress, DemandStatus.Completed, UserRole.Mediator) when DemandedUserId == currentUserId => true,
-
-                _ => false
-            };
-
-            if (!isTransitionAllowed)
-                throw new InvalidOperationException($"Workflow Violation: Role '{userRole}' cannot change status from '{Status}' to '{targetStatus}'.");
-
-            Status = targetStatus;
-        }
-
-        public void CoordinateAssignment(long targetUserId, UserRole accessorRole)
+        public Demand CoordinateAssignment(long targetUserId, UserRole accessorRole)
         {
             if (accessorRole != UserRole.Coordinator && accessorRole != UserRole.Admin)
                 throw new UnauthorizedAccessException("Only Coordinators or Admins can assign resources.");
 
             AssignToUser(targetUserId);
             Status = DemandStatus.Assigned;
+
+            return this;
         }
 
 

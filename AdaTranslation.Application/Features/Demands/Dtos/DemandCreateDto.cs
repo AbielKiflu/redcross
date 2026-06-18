@@ -6,8 +6,8 @@ namespace AdaTranslation.Application.Features.Demands.Dtos
     {
         public required string Subject { get; set; }
         public required string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime FinishDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? FinishDate { get; set; }
         public DemandPriority Priority { get; set; } = DemandPriority.Medium;
         public DemandStatus Status { get; set; } = DemandStatus.Draft;
         public DemandType DemandType { get; set; } = DemandType.Site;
